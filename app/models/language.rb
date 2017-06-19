@@ -19,6 +19,7 @@ tracked owner: Proc.new{ |controller, model| controller && controller.current_us
  has_many :articles, dependent: :destroy
 
   validates :name, presence: true
+  validates_uniqueness_of :name, case_sensitive: false
   def self.options_for_select
   order('LOWER(name)').map { |e| [e.name, e.id] }
 end
