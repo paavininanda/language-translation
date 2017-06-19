@@ -15,7 +15,8 @@ tracked owner: Proc.new{ |controller, model| controller && controller.current_us
   has_many :users
   has_many :countries
 
-  validates :name, presence: true
+  validates_presence_of :name
+  validates_uniqueness_of :name, case_sensitive: false
   # add search feature
     def self.search(search)
     where("name iLIKE ?", "%#{search}%")
