@@ -15,7 +15,7 @@
  <tbody>
      <tr>
    
-        <td><%= link_to image_tag(article.picture_url, width: 50), article_path(article) if article.picture.present? %></td>
+        <td><%= link_to image_tag(article.picture.thumb.url, width: 50), article_path(article) if article.picture.present? %></td>
         <td><%= article.english %></td>
         <td><%= article.phonetic %></td>
         <td><%= article.category.try(:name) %></td>
