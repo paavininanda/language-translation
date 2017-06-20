@@ -47,5 +47,7 @@ class AudioUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
+  def extension_white_list
+    %w(mp3 wav ogg wma ogg pcm aiff flac aac)
+  end
 end
