@@ -20,82 +20,82 @@
 
 html,
 body { width: 100%; height: 100%; margin: 0; padding: 0; }
-body { 
-  position: relative; 
-  font-weight: 300; 
-  box-sizing: border-box; 
-  min-height: 100%; @include ff(r); 
-  background-color: $colorGrayBackground; 
-  color: $colorText; 
+body {
+  position: relative;
+  font-weight: 300;
+  box-sizing: border-box;
+  min-height: 100%; @include ff(r);
+  background-color: $colorGrayBackground;
+  color: $colorText;
 }
 body.open { overflow: hidden; }
 
-.app-bar { 
-  display: block; 
-  width: 100%; 
-  position: fixed; 
-  top: 0; 
-  left: 0; 
-  background-color: #FFF; 
+.app-bar {
+  display: block;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #FFF;
   border-bottom: 1px solid #BBB;
-  overflow: hidden; 
-  z-index: 1; 
+  overflow: hidden;
+  z-index: 1;
 }
-.app-bar-container { 
-  display: -webkit-flex; 
-  display: -ms-flexbox; 
-  display: flex; 
-  width: 100%; 
-  height: 40px; 
-  position: relative; 
-  -webkit-flex-direction: row; 
-  -ms-flex-direction: row; 
-  flex-direction: 
-  row; margin: 0 auto; 
+.app-bar-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 40px;
+  position: relative;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction:
+  row; margin: 0 auto;
 }
 
 .app-bar.open,
-.app-bar.open ~ main { 
-  -webkit-transform: translate(200px, 0); 
-  transform: translate(200px, 0); 
+.app-bar.open ~ main {
+  -webkit-transform: translate(200px, 0);
+  transform: translate(200px, 0);
 }
 
 .app-bar .Heading {
-  -webkit-flex: 1; 
-  -ms-flex: 1; 
-  flex: 1; 
-  font-size: 2em; 
-  line-height: 40px; 
-  margin: 0; 
-  padding: 0; 
-  float: none; 
-  max-width: none; 
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-size: 2em;
+  line-height: 40px;
+  margin: 0;
+  padding: 0;
+  float: none;
+  max-width: none;
 
-  .title { 
-    padding-top: 0; 
-    display: initial; 
-    @include ff(s); 
-    font-size: $fontBase; 
-    vertical-align: middle; 
+  .title {
+    padding-top: 0;
+    display: initial;
+    @include ff(s);
+    font-size: $fontBase;
+    vertical-align: middle;
     span { padding-right: 20px; }
-  } 
-} 
-.app-bar .Heading a { 
-  text-decoration: none; 
-  color: inherit; 
-  font-weight: normal; 
+  }
 }
-.app-bar-actions { 
-  margin: 0 5px 0 0; 
-  padding: 0; 
-  list-style: none; 
-  display: -webkit-flex; 
-  display: -ms-flexbox; 
-  display: flex; 
-  -webkit-flex-direction: row; 
-  -ms-flex-direction: row; 
-  flex-direction: row; 
-  z-index: 2; 
+.app-bar .Heading a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: normal;
+}
+.app-bar-actions {
+  margin: 0 5px 0 0;
+  padding: 0;
+  list-style: none;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  z-index: 2;
 
   li { margin: 0; padding-left: 5px; list-style: none; }
   @include wide {
@@ -103,17 +103,17 @@ body.open { overflow: hidden; }
     li { margin-left: 10px; }
   }
 }
-.app-bar button.menu { 
-  width: 40px; 
-  height: 40px; 
+.app-bar button.menu {
+  width: 40px;
+  height: 40px;
   background-image: none;
-  background-color: transparent; 
-  border: none; 
-  padding: 0; 
-  display: inline-block; 
-  -webkit-transition: background-color 0.2s ease-out; 
-  transition: background-color 0.2s ease-out; 
-  -webkit-tap-highlight-color: transparent; 
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  display: inline-block;
+  -webkit-transition: background-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .app-bar button.menu:hover { outline: 0; }
@@ -156,25 +156,25 @@ main {
   font-size: $fontSmall;
 }
 
-.UserDetails { 
+.UserDetails {
   vertical-align: middle;
-  padding-left: 50px;   
- 
-  .UserDetails-link { 
-    height: 40px;  
-    padding: 8px 16px; 
-    width: 100%; 
-    line-height: 1.4; 
-    display: block; 
-    vertical-align: middle; 
-    text-decoration: none; 
-    color: #444; 
+  padding-left: 50px;
+
+  .UserDetails-link {
+    height: 40px;
+    padding: 8px 16px;
+    width: 100%;
+    line-height: 1.4;
+    display: block;
+    vertical-align: middle;
+    text-decoration: none;
+    color: #444;
   }
     .UserDetails-link {
       .icon-chevron-down-thin {
         &:before {
-          position: relative; 
-          top: -2px; 
+          position: relative;
+          top: -2px;
           font-size: 13px;
           content: "\e607";
         }
@@ -188,15 +188,15 @@ main {
       }
     }
 
-    img { 
-      width: 24px; 
-      border: 1px solid #FFF; 
-      height: 24px; 
-      float: left; 
-      display: inline-block; 
-      @include border-radius(50%); 
-      vertical-align: middle; 
-      margin-right: 10px; 
+    img {
+      width: 24px;
+      border: 1px solid #FFF;
+      height: 24px;
+      float: left;
+      display: inline-block;
+      @include border-radius(50%);
+      vertical-align: middle;
+      margin-right: 10px;
     }
     span { @include type--medium; }
 
@@ -313,15 +313,15 @@ main {
     height: 76px;
   }
 
-  .app-bar .Heading { 
-    .title {    
+  .app-bar .Heading {
+    .title {
       margin: 0;
       padding: 0;
       font-size: $fontMedium;
       @include ff(s);
       line-height: 76px;
       span { padding-right: 0; }
-    } 
+    }
   }
 
   .app-bar::after {
@@ -408,7 +408,7 @@ main {
   }
 
   .AppControls {
-    padding: 20px 0; 
+    padding: 20px 0;
   }
   .AppControls-left {
     @include flex(1);
@@ -420,18 +420,19 @@ main {
 
 .Info { margin-top: 0;
   background-color: #FFF; @include border-radius(3px); border: 1px solid #DDDDDD;
-  dt { width: 120px; float: left; background-color: #E3E4E1; padding: 7px 10px; border-bottom: 1px solid #DDDDDD;  font-family: $fontHighlight;  @include ellipsis();
-    &:last-child { border: none; }
+  dt { width: 120px; float: left; background-color: #E3E4E1; padding: 7px 10px; border-bottom: 1px solid #DDDDDD; font-family: $fontHighlight; @include ellipsis();
+        &:last-child { border: none; }
   }
-  dd { padding: 7px 10px; border-bottom: 1px solid #DDDDDD; margin: 0 0 0 120px; 
-    &:last-child { border: none; }
+
+  dd { padding: 7px 10px; border-bottom: 1px solid #DDDDDD; margin: 0 0 0 120px; word-wrap: break-word;
+        &:last-child { border: none; }
   }
-  
+
   @include wide {
     dt { width: 185px; }
     dd { margin: 0 0 0 185px;  }
   }
-  .Info-more { float: right; text-decoration: none; 
+  .Info-more { float: right; text-decoration: none;
     &:hover { text-decoration: underline; }
   }
 }
@@ -456,7 +457,7 @@ main {
   }
   .Logo { width: 120px; margin: 20px auto; padding: 0; text-align: center; }
   .User-footer { margin-bottom: 50px; width: 300px; margin: 0 auto; padding: 0;
-    p { padding-top: 10px; padding-bottom: 50px; text-align: center; 
+    p { padding-top: 10px; padding-bottom: 50px; text-align: center;
       a { text-decoration: none; font-size: 14px;
         &:hover { text-decoration: underline;  }
       }
