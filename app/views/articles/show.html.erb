@@ -46,8 +46,7 @@
           <% if audio.audio.present? %>
             <dt><%= audio.content %></dt>
             <dd>
-              <%= link_to image_tag("icons/audio_icon.png", width: 24), "#", class: "jpayAudio" %>
-              <%= audio_tag audio.audio %>
+              <%= audio_tag(audio.audio, controls: true) %>
             </dd>
           <% end %>
         <% end %>
