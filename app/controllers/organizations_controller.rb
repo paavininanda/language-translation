@@ -53,7 +53,7 @@ class OrganizationsController < ApplicationController
   end
 
   def destroy
-    @organization.destroy
+    @organization.delete
     respond_to do |format|
       format.html { redirect_to organizations_url, notice: 'Organization was successfully destroyed.' }
       format.json { head :no_content }
