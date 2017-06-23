@@ -75,6 +75,10 @@ gem 'simple-navigation'
 # A lightweight Sass tool set
 gem 'bourbon'
 
+group :test do
+  gem 'shoulda'
+end
+
 group :test, :development do
   # Adds MiniTest as the default testing library in Rails 3 and 4
   gem 'minitest-rails'
