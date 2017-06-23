@@ -9,6 +9,7 @@ class API::ArticlesControllerTest < ActionController::TestCase
     @user = create(:user)
     @user.add_role :admin
     @language = create(:language, name: 'Chuukese')
+    @category = create(:category, { name: "Places" })
   end
 
   def teardown
@@ -22,6 +23,7 @@ class API::ArticlesControllerTest < ActionController::TestCase
         3.times {
           create(:article,
                  {
+                     category_id: @category.id,
                      language_id: @language.id,
                      picture: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test', 'support', 'picture', 'logo.jpg'))
                  })

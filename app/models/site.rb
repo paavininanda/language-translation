@@ -16,8 +16,8 @@ tracked owner: Proc.new{ |controller, model| controller && controller.current_us
  resourcify #This line is added to add Site model as a resource for the Rolify gem. (contributors, volunteers)
   belongs_to :country
 
-  validates :name, presence: true
-
+  validates_presence_of :name
+  validates_uniqueness_of :name, case_sensitive: false, scope: :country_id
   # default order when calling the Site model
   default_scope -> { order('created_at DESC') }
   

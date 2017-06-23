@@ -15,7 +15,8 @@ class Organization < ActiveRecord::Base
   has_many :users, dependent: :delete_all
   has_many :countries
 
-  validates :name, presence: true
+  validates_presence_of :name
+  validates_uniqueness_of :name, case_sensitive: false
   # add search feature
     def self.search(search)
     where("name iLIKE ?", "%#{search}%")

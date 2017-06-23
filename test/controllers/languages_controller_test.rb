@@ -39,6 +39,14 @@ class LanguagesControllerTest < ActionController::TestCase
     end
   end
 
+  test "should not create a duplicate language" do
+    assert_difference('Language.count', 1) do
+      2.times {
+        post :create, language: {name: 'Sanskrit'}
+      }
+    end
+  end
+
   test "should delete language along with all photos under that language" do
     language = Language.create!({name: 'Sanskrit'})
     category = create(:category)

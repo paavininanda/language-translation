@@ -18,9 +18,9 @@ class API::CategoriesControllerTest < ActionController::TestCase
   describe "Get #index" do
     describe "when all category renders" do
       before(:each) do
-        3.times {
-          create(:category, { name: "Places" })
-        }
+        create(:category, { name: "Places" })
+        create(:category, { name: "Tools" })
+        create(:category, { name: "Adjectives" })
       end
 
       it "return 3 records" do
