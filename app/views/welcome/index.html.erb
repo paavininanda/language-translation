@@ -15,8 +15,11 @@
             <h3 class="title">User</h3>
             <div class="User u-pushTopBottom">
                 <a href="#" class="User-link">
-			 <%= image_tag(current_user.avatar.url(:thumb), unless: current_user.avatar.nil?) %>
-
+                    <% if current_user.avatar.present? %>
+                        <%= image_tag(current_user.avatar.url(:thumb))%>
+                    <% else %>
+                        <%= image_tag("user.png") %>
+                    <% end %>
                 </a>
             </div>
 
