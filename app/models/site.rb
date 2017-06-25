@@ -10,20 +10,20 @@
 #
 
 class Site < ActiveRecord::Base
-include PublicActivity::Model
-tracked owner: Proc.new{ |controller, model| controller && controller.current_user }
+	include PublicActivity::Model
+	tracked owner: Proc.new{ |controller, model| controller && controller.current_user }
  
- resourcify #This line is added to add Site model as a resource for the Rolify gem. (contributors, volunteers)
-  belongs_to :country
+ 	resourcify #This line is added to add Site model as a resource for the Rolify gem. (contributors, volunteers)
+	belongs_to :country
 
-  validates_presence_of :name
-  validates_uniqueness_of :name, case_sensitive: false, scope: :country_id
-  # default order when calling the Site model
-  default_scope -> { order('created_at DESC') }
+	validates_presence_of :name
+	validates_uniqueness_of :name, case_sensitive: false, scope: :country_id
+  
+	# default order when calling the Site model
+	default_scope -> { order('created_at DESC') }
   
   # add search feature
-    def self.search(search)
-    where("name iLIKE ?", "%#{search}%")
-  end
-
+	def self.search(search)
+		where("name iLIKE ?", "%#{search}%")
+	end
 end
