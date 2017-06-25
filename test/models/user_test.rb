@@ -129,6 +129,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not user2.save, "Saved user has an already existing username"
   end
 
+  test "avatar size should be less than 500KB" do
+    user = build(:user, avatar: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test', 'support', 'picture', 'big_image.jpg')))
+    assert_not user.save, "Saved user has uploaded avatar size larger than 500KB"
+  end
+
   context "associations" do
     should belong_to(:organization)
   end
