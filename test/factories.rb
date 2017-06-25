@@ -8,26 +8,26 @@ FactoryGirl.define do
   end
 
   factory :category do
-    name                      "Pet"
+    sequence(:name) { |n| "test_category_#{n}" }
   end
 
   factory :country do
     organization
     user
-    name                      "Location"
+    sequence(:name) { |n| "test_location_#{n}" }
   end
 
   factory :language do
-    name                      "English"
+    sequence(:name) { |n| "test_language_#{n}" }
   end
 
   factory :organization do
-    sequence(:name) { |n| "test_org_#{n}" }
+    sequence(:name) { |n| "test_organization_#{n}" }
   end
 
   factory :site do
     country
-    name                      "Site Name"
+    sequence(:name) { |n| "test_site_#{n}" }
   end
 
   factory :user do
@@ -39,6 +39,6 @@ FactoryGirl.define do
     authentication_token      { Devise.friendly_token }
     sequence(:username)       { |n| "uname#{n}" }
     login_approval_at         { 2.weeks.ago }
+    avatar                    Rack::Test::UploadedFile.new(File.join(Rails.root, 'test', 'support', 'picture', 'logo.jpg'))
   end
-
 end
