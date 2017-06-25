@@ -123,4 +123,39 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.save, "Saved user has authentication error"
   end
 
+  test "should not save user with existing username" do
+    user1 = create(:user, username: "user")
+    user2 = build(:user, username: "user")
+    assert_not user2.save, "Saved user has an already existing username"
+  end
+
+  context "associations" do
+    should belong_to(:organization)
+  end
+
+  context "validations" do
+    # USERNAME
+    should validate_uniqueness_of(:username)
+    should validate_length_of(:username).is_at_most(10).on(:create)
+    should allow_value("admin123").for(:username)
+    should_not allow_value("admin_.123").for(:username)
+
+    # CONTACT
+    should allow_value(9884398843).for(:contact)
+    should_not allow_value("John9884398843").for(:contact)
+
+    # FIRST NAME
+    should validate_length_of(:first_name).is_at_most(10).on(:create)
+    should allow_value("John").for(:first_name)
+    should_not allow_value("John_123").for(:first_name)
+
+    # LAST NAME
+    should validate_length_of(:last_name).is_at_most(10).on(:create)
+    should allow_value("Smith").for(:last_name)
+    should_not allow_value("Smith_123").for(:last_name)
+
+    # ORGANIZATION ID
+    should validate_presence_of(:organization_id)
+  end
+
 end
