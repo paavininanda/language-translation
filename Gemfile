@@ -11,6 +11,8 @@ gem 'pg'
 gem 'pg_search'
 # Use for uploading files and images.
 gem 'carrierwave'
+# For validating file upload sizes
+gem 'file_validators'
 # Use for resizing of images in your rails application
 gem 'mini_magick'
 # Use SCSS for stylesheets

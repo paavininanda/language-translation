@@ -63,11 +63,6 @@ class User < ActiveRecord::Base
   validates_integrity_of  :avatar
   validates_processing_of :avatar
 
-  private
-  def avatar_size_validation
-    errors[:avatar] << "should be less than 500KB" if avatar.size > 0.5.megabytes
-  end
-
   def avatar_url(user)
     if user.avatar_url.present?
       user.avatar_url
@@ -88,6 +83,8 @@ class User < ActiveRecord::Base
 
   validates :last_name, :length => { :maximum => 10 }
   validates :last_name, format: {with: /\A(?=.*[a-z])[a-z\d]+\Z/i, message: ' : Only alphaumeric characters allowed, but not purely numeric.'}
+
+  validates :avatar, file_size: { less_than: 0.5.megabytes }
 
   # default order when calling the User model
   default_scope -> { order('created_at DESC') }
