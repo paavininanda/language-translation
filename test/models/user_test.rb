@@ -134,6 +134,24 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.save, "Saved user has uploaded avatar size larger than 500KB"
   end
 
+  test "check if user name present in search" do
+    # POPULATING DATABASE FROM FACTORY WITH OVERRIDE, TO VERIFY SEARCH
+    organization1 = create(:organization, id: 1, name: "test_organization_1")
+
+    user1 = create(:user, email: "test_user_1@gamil.com", username: "testuser1", first_name: "Test", last_name: "User1", organization_id: 1, location: "test_location_1", login_approval_at: 2.weeks.ago)
+    user2 = create(:user, email: "test_user_2@gamil.com", username: "testuser2", first_name: "Test", last_name: "User2", organization_id: 1, location: "test_location_2", login_approval_at: 2.weeks.ago)
+    user3 = create(:user, email: "test_user_3@gamil.com", username: "testuser3", first_name: "Test", last_name: "User3", organization_id: 1, location: "test_location_3", login_approval_at: 2.weeks.ago)
+
+    assert_equal User.search("test_location_1")[0].username, "testuser1", "Location Search not returning correct object"
+  end
+
+  test "check if avatar url returns a url" do
+    organization1 = create(:organization, id: 1, name: "test_organization_1")
+
+    user1 = create(:user, email: "test_user_1@gamil.com", username: "testuser1", first_name: "Test", last_name: "User1", organization_id: 1, location: "test_location_1", login_approval_at: 2.weeks.ago, avatar: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test', 'support', 'picture', 'logo.jpg')))
+    assert_match "logo.jpg", user1.avatar_url(user1)
+  end
+
   context "associations" do
     should belong_to(:organization)
   end
