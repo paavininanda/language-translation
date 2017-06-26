@@ -7,6 +7,10 @@ FactoryGirl.define do
     sequence(:phonetic)       { |n| "Phonetic Text #{n}" }
   end
 
+  factory :audio do
+    audio                     Rack::Test::UploadedFile.new(File.join(Rails.root, 'test', 'support', 'audio', 'test_audio.wav'))
+  end
+
   factory :category do
     sequence(:name) { |n| "test_category_#{n}" }
   end
