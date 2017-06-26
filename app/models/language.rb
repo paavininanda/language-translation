@@ -9,19 +9,20 @@
 #
 
 class Language < ActiveRecord::Base
-include PublicActivity::Model
-tracked owner: Proc.new{ |controller, model| controller && controller.current_user }
+	include PublicActivity::Model
+	tracked owner: Proc.new{ |controller, model| controller && controller.current_user }
  
- def self.search(search)
+ 	def self.search(search)
     where("name iLIKE ?", "%#{search}%") 
   end
  
- has_many :articles, dependent: :destroy
-
-  validates :name, presence: true
+	has_many :articles, dependent: :destroy
+	
+  validates_presence_of :name
   validates_uniqueness_of :name, case_sensitive: false
+  
   def self.options_for_select
-  order('LOWER(name)').map { |e| [e.name, e.id] }
-end
+  	order('LOWER(name)').map { |e| [e.name, e.id] }
+	end
 
 end
