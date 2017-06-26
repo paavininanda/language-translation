@@ -20,6 +20,12 @@ class LanguageTest < ActiveSupport::TestCase
     assert_not language.save, "Saved the language without its name"
   end
 
+  test "should save language with its field name" do
+    language = Language.new
+    language.name = "test_language"
+    assert language.save, "Saved the language with its name"
+  end
+
   test "check if language present in search" do
   	# POPULATING DATABASE FROM FACTORY WITH OVERRIDE, TO VERIFY SEARCH
   	language1 = create(:language, name: "test_language_1")
@@ -43,6 +49,10 @@ class LanguageTest < ActiveSupport::TestCase
     language2 = build(:language, name: "test_language_1")
 
     assert_not language2.save, "Language name already exists."
+  end
+
+  context "associations" do
+    should have_many(:articles).dependent(:destroy)
   end
 
   context "validations" do
