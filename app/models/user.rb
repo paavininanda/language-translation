@@ -64,11 +64,11 @@ class User < ActiveRecord::Base
   validates_processing_of :avatar
 
   def avatar_url(user)
-    if user.avatar_url.present?
-      user.avatar_url
+    if user.avatar.url.present?
+      user.avatar.url
     end
   end
-    
+
   default_scope -> { order('created_at DESC') }
 
   validates_uniqueness_of :username
