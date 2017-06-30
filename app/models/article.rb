@@ -32,6 +32,7 @@ class Article < ActiveRecord::Base
   mount_uploader :picture, PictureUploader
 
   validates_presence_of :picture
+  validates_presence_of :category_id
 
   enum state:   [:draft, :published]
   
@@ -41,7 +42,7 @@ class Article < ActiveRecord::Base
       :with_category_id,
     ]
   )
-
+  
   belongs_to :language
   scope :with_language_id, lambda { |language_ids|
     where(:language_id => [*language_ids])

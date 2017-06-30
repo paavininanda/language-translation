@@ -47,6 +47,7 @@ class API::ArticlesControllerTest < ActionController::TestCase
                               english: 'Cat',
                               phonetic: "Tac",
                               language_id: @language.id,
+                              category_id: @category.id,
                               picture: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test', 'support', 'picture', 'logo.jpg'))
                           })
       end
@@ -72,6 +73,7 @@ class API::ArticlesControllerTest < ActionController::TestCase
                                         english: 'Cat',
                                         phonetic: "Tac",
                                         language_id: @language.id,
+                                        category_id: @category.id,
                                         picture: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test', 'support', 'picture', 'logo.jpg'))
                                     })
 
@@ -113,6 +115,7 @@ class API::ArticlesControllerTest < ActionController::TestCase
                             english: 'Cat',
                             phonetic: "Tac",
                             language_id: @language.id,
+                            category_id: @category.id,
                             picture: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test', 'support', 'picture', 'logo.jpg'))
                         })
     end
@@ -138,6 +141,7 @@ class API::ArticlesControllerTest < ActionController::TestCase
                               english: 'Cat',
                               phonetic: "Tac",
                               language_id: @language.id,
+                              category_id: @category.id,
                               picture: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test', 'support', 'picture', 'logo.jpg'))
                           })
       end
