@@ -36,7 +36,7 @@ class Ability
       can :manage, User,
           organization_id: @user.organization.id,
           id: User.with_any_role({name: :contributor, resource: :any}, :guest).map { |a| a.id }
-      can [:read], Site,
+      can [:read, :update], Site,
           id: Site.with_role(:volunteer, @user).map { |a| a.id }
 
     elsif user.has_role? :contributor, :any
