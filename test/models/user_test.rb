@@ -165,7 +165,8 @@ class UserTest < ActiveSupport::TestCase
 
     # CONTACT
     should allow_value(9884398843).for(:contact)
-    should_not allow_value("John9884398843").for(:contact)
+    should allow_value("John9884398843").for(:contact)
+    should_not allow_value("John_9884398843").for(:contact)
 
     # FIRST NAME
     should validate_length_of(:first_name).is_at_most(10).on(:create)
