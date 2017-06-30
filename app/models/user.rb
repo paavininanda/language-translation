@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   validates :username, :length => { :maximum => 10 }
   validates :username, format: {with: /\A(?=.*[a-z])[a-z\d]+\Z/i, message: ' : Only alphaumeric characters allowed, but not purely numeric.'}
 
-  validates :contact, numericality: { only_integer: true, message: ' : Supports only Digits' }, :allow_blank => true
+  validates :contact, format: {with: /\A[A-Za-z0-9]+\z/, message: ' : Only alphaumeric characters '}, :allow_blank => true
 
   validates :first_name, :length => { :maximum => 10 }
   validates :first_name, format: {with: /\A(?=.*[a-z])[a-z\d]+\Z/i, message: ' : Only alphaumeric characters allowed, but not purely numeric.'}
