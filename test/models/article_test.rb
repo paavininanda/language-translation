@@ -36,7 +36,7 @@ class ArticleTest < ActiveSupport::TestCase
     assert_not article.save, "Saved the article without a picture"
   end
 
-  it "is saved with :english, :phonetic, :language_id, :picture value but no organization id" do
+  it "is saved with :english, :phonetic, :language_id, :picture value but no category id" do
     article = build(:article,
                     {
                         english: "Cat",
@@ -45,10 +45,10 @@ class ArticleTest < ActiveSupport::TestCase
                         picture: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test', 'support', 'picture', 'logo.jpg'))
                     })
 
-    assert article.save, "Saved the article without a phonetic, english value, language_id, picture and an organization id"
+    assert article.save, "Saved the article without an category id"
   end
 
-  it "is saved with :english, :phonetic, :language_id, :picture value and organization id" do
+  it "is saved with :english, :phonetic, :language_id, :picture value and category id" do
     article = build(:article,
                     {
                         english: "Cat",
@@ -58,9 +58,9 @@ class ArticleTest < ActiveSupport::TestCase
                         picture: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test', 'support', 'picture', 'logo.jpg'))
                     })
 
-    assert article.save, "Saved the article without a phonetic, english value, language_id, picture and an organization id"
+    assert article.save, "All fields present, but article not saved"
   end
-  
+
   test 'filters by language' do
     language = create(:language, name: "test_language", id: 2)
     category = create(:category, name: "test_category", id: 1)
