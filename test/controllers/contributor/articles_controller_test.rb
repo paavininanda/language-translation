@@ -42,7 +42,7 @@ module Contributor
                phonetic: "Pihiya",
                language_id: @language.id,
                picture: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test', 'support', 'picture', 'logo.jpg')),
-               state: "published"
+               state: "draft"
            }
 
       assert_redirected_to article_path(assigns(:article))

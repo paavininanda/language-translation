@@ -35,11 +35,15 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
 
-    if @article.save
-      redirect_to @article
-    else
-      @categories = Category.all
-      render 'new'
+    respond_with(@category) do |format|
+      if @article.save
+        flash[:notice] = "Article successfully created."
+        format.html { redirect_to article_path(@article) }
+      else
+        flash[:error] = "Sorry, failed to create article due to errors."
+        @categories = Category.all
+        format.html { render 'new' }
+      end
     end
   end
 
@@ -57,11 +61,17 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    if @article.update(article_params)
-      redirect_to @article
-    else
-      @categories = Category.all
-      render 'edit'
+    @article = Article.find(params[:id])
+    
+    respond_with(@article) do |format|
+      if @article.update(article_params)
+        flash[:notice] = "Article successfully updated."
+        format.html { redirect_to article_path(@article) }
+      else
+        flash[:error] = "Sorry, failed to update article due to errors."
+        @categories = Category.all
+        format.html { render 'edit' }
+      end
     end
   end
 
@@ -100,5 +110,9 @@ class ArticlesController < ApplicationController
   private
   def set_article
     @article = Article.includes(:category, :language, :audios).find(params[:id])
+  end
+
+  def article_params
+    params.require(:article).permit(:picture, :category_id, :language_id, :english, :phonetic, :audio, :state)
   end
 end
