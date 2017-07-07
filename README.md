@@ -16,15 +16,18 @@
 ## Framework and specifications
 
 1. Rails 4.2.1
-2. Ruby 2.2.0p0
-3. PostgreSQL (development, test, deployment)
+2. Ruby 2.2.3p173
+3. PostgreSQL (development, test and deployment)
 
-## Instructions on running the application
+## How to run this application?
 
-1. Download the PLTcode directory.
-2. Enter the application's root directory.
-3. `$ rake db:migrate`
-4. `$ rake db:seed`
-5. `$ bower install`
-6. `$ rails s`
-7. Enter `localhost:3000` on a web browser
+1. Clone the repository.
+2. Install PostgesSQL, npm.
+3. Rename config/database.yml.example to config/database.yml Update the config/database.yml file with your host name, postgres username and password.
+4. To setup the application run, `rake db:setup`.
+5. Install bower using npm `npm install -g bower`.
+6. To install bower components Run `bower install`.
+7. To run the rails application, Run `rails s`.
+8. Open `localhost:3000` on your browser to run the application
+9. To run the testing suite, Run `rake`.
+10. To view the coverage details, Open coverage directory and run `python -m SimpleHTTPServer` and visit `localhost:8000` on your browser.
