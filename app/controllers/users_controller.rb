@@ -1,15 +1,16 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :show, :destroy, :update]
   load_and_authorize_resource
+  respond_to :html, :json
 
   def index
-     @users = User.accessible_by(current_ability)
-  if params[:search]
-    @users = User.search(params[:search]).order("created_at DESC")
-  else
-    @users = User.accessible_by(current_ability).order('created_at DESC')
+    @users = User.accessible_by(current_ability)
+    if params[:search]
+      @users = User.search(params[:search]).order("created_at DESC")
+    else
+      @users = User.accessible_by(current_ability).order('created_at DESC')
+    end
   end
- end
 
   def new
     @user = User.new
@@ -22,19 +23,25 @@ class UsersController < ApplicationController
     @user.no_invitation = user_params[:no_invitation]
 
     respond_to do |format|
-      if @user.save  
+      if @user.save
+        flash[:notice] = "User successfully created."
         format.html { redirect_to users_path }
       else
+        flash[:error] = "Sorry, failed to create user due to errors."
         format.html { render 'new' }
       end
     end
   end
 
   def update
-    if @user.update(user_params)
-      redirect_to @user
-    else
-      render 'edit'
+    respond_with(@category) do |format|
+      if @user.update(user_params)
+        flash[:notice] = "User successfully updated."
+        format.html { redirect_to @user }
+      else
+        flash[:error] = "Sorry, failed to update user due to errors."
+        format.html { render 'edit' }
+      end
     end
   end
 
@@ -53,8 +60,10 @@ class UsersController < ApplicationController
     @user.login_approval_at = Time.now
     respond_to do |format|
       if @user.save
+        flash[:notice] = "User has been approved."
         format.json { render json: User.accessible_by(current_ability), status: :ok }
       else
+        flash[:error] = "Sorry, failed to approve user due to errors."
         format.json { render json: @user.errors, status: :unprocessable_entity}
       end
     end
@@ -65,8 +74,10 @@ class UsersController < ApplicationController
     @user.login_approval_at = nil
     respond_to do |format|
       if @user.save
+        flash[:notice] = "User has been disapproved."
         format.json { render json: User.accessible_by(current_ability), status: :ok }
       else
+        flash[:error] = "Sorry, failed to disapprove user due to errors."
         format.json { render json: @user.errors, status: :unprocessable_entity}
       end
     end
@@ -79,8 +90,10 @@ class UsersController < ApplicationController
     @user.add_role :admin
     respond_to do |format|
       if @user.save
+        flash[:notice] = "User granted admin permission."
         format.json { render json: @user.roles.map{|a| a.name}, status: :ok }
       else
+        flash[:error] = "Sorry, failed to grant admin permission due to errors."
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -97,15 +110,17 @@ class UsersController < ApplicationController
       end
     end
   end
-def avatar_url(user)
-    if user.avatar_url.present?
-      user.avatar_url
-    else
-      default_url = "#{root_url}images/guest.png"
-      gravatar_id = Digest::MD5::hexdigest(user.email).downcase
-      "http://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=#{CGI.escape(default_url)}"
-    end
-  end
+
+  # def avatar_url(user)
+  #   if user.avatar.url.present?
+  #     user.avatar.url
+  #   else
+  #     default_url = "#{root_url}images/guest.png"
+  #     gravatar_id = Digest::MD5::hexdigest(user.email).downcase
+  #     "http://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=#{CGI.escape(default_url)}"
+  #   end
+  # end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user
