@@ -58,6 +58,10 @@
 
 28. [ ] UI Improvements
 
+30. [ ] Approve, Disapprove User and Grant, Revoke Admin functionalities in users_controller not working.
+
+31. [ ] Add and Remove Role functionality in sites_controller not working.
+
 ## Using Devise
 
 1. [x] For "Sign Up Form", username, first name, last name, password fields are compulsory. Username field is unique for each user. If the username you chose has already been chosen by someone, then you are asked to enter some other username.
@@ -88,17 +92,28 @@
 
 1. Rails 4.2.1
 2. Ruby 2.2.3p173
-3. PostgreSQL (development, test and deployment)
+3. PostgreSQL 8.2 and above are supported (development, test and deployment)
 
 ## How to run this application?
 
-1. Clone the repository.
-2. Install PostgesSQL, npm.
-3. Rename config/database.yml.example to config/database.yml Update the config/database.yml file with your host name, postgres username and password.
-4. To setup the application run, `rake db:setup`.
-5. Install bower using npm `npm install -g bower`.
-6. To install bower components Run `bower install`.
-7. To run the rails application, Run `rails s`.
-8. Open `localhost:3000` on your browser to run the application
-9. To run the testing suite, Run `rake`.
-10. To view the coverage details, Open coverage directory and run `python -m SimpleHTTPServer` and visit `localhost:8000` on your browser.
+1. Clone the repository : `git clone https://github.com/systers/language-translation.git`. Check into the directory after cloning.
+
+2. Install PostgreSQL (Version 8.2 and above supported) and npm.
+
+3. Rename config/database.yml.example to config/database.yml : `mv config/database.yml.example config/database.yml`.
+
+4. Update the config/database.yml file with your host name, postgres username and password.
+
+5. To setup the application run, `rake db:setup`.
+
+6. Install bower using npm : `npm install -g bower`.
+
+7. To install bower components, Run `bower install`.
+
+8. To run the rails application, Run `rails s`.
+
+9. Open `localhost:3000` on your browser to run the application.
+
+10. To run the testing suite, Run `rake`.
+
+11. To view the coverage details, From application root, open coverage directory (`cd coverage`) and run `python -m SimpleHTTPServer` and visit `localhost:8000` on your browser.
