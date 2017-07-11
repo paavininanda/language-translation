@@ -21,13 +21,24 @@
 
 ## How to run this application?
 
-1. Clone the repository.
-2. Install PostgesSQL, npm.
-3. Rename config/database.yml.example to config/database.yml Update the config/database.yml file with your host name, postgres username and password.
-4. To setup the application run, `rake db:setup`.
-5. Install bower using npm `npm install -g bower`.
-6. To install bower components Run `bower install`.
-7. To run the rails application, Run `rails s`.
-8. Open `localhost:3000` on your browser to run the application
-9. To run the testing suite, Run `rake`.
-10. To view the coverage details, Open coverage directory and run `python -m SimpleHTTPServer` and visit `localhost:8000` on your browser.
+1. Clone the repository : `git clone https://github.com/systers/language-translation.git`. Check into the directory after cloning.
+
+2. Install PostgreSQL (Version 8.2 and above supported) and npm.
+
+3. Rename config/database.yml.example to config/database.yml : `mv config/database.yml.example config/database.yml`.
+
+4. Update the config/database.yml file with your host name, postgresql username and password.
+
+5. To setup the application run, `rake db:setup`.
+
+6. Install bower using npm : `npm install -g bower`.
+
+7. To install bower components, Run `bower install`.
+
+8. To run the rails application, Run `rails s`.
+
+9. Open `localhost:3000` on your browser to run the application.
+
+10. To run the testing suite, Run `rake`.
+
+11. To view the coverage details, From application root, open coverage directory (`cd coverage`) and run `python -m SimpleHTTPServer` and visit `localhost:8000` on your browser.
