@@ -1,21 +1,21 @@
 class SitesController < ApplicationController
+  before_action :set_site, only: [:edit, :show, :destroy, :update]
   load_and_authorize_resource
+  respond_to :html
 
   def index
     current_user.organization.countries.each do |a|
       @sites << a.sites
-  if params[:search]
-    @sites = Site.search(params[:search]).order("created_at DESC")
-  else
-    @sites << a.sites.order('created_at DESC')
-  end
-
-   end
+      if params[:search]
+        @sites = Site.search(params[:search]).order("created_at DESC")
+      else
+        @sites << a.sites.order('created_at DESC')
+      end
+    end
     @sites = @sites.page(params[:page]).per(20)
   end
 
   def show
-    @site = Site.find(params[:id])
     @volunteers = User.with_role :volunteer, @site
     @contributors = User.with_role :contributor, @site
   end
@@ -36,39 +36,43 @@ class SitesController < ApplicationController
     else
       @countries = current_user.organization.countries
     end
-
-    @site = Site.find(params[:id])
   end
 
   def create
     @site = Site.new(site_params)
 
-    if @site.save
-      redirect_to @site
-    else
-      if current_user.has_role? :superadmin
-        @countries = Country.all
+    respond_with(@site) do |format|
+      if @site.save
+        flash[:notice] = "Site successfully created."
+        format.html { redirect_to @site }
       else
-        @countries = current_user.organization.countries
+        flash[:error] = "Sorry, failed to create site due to errors."
+        if current_user.has_role? :superadmin
+          @countries = Country.all
+        else
+          @countries = current_user.organization.countries
+        end
+        format.html { render 'new' }
       end
-      render 'new'
     end
   end
 
   def update
-    @site = Site.find(params[:id])
-
-    if @site.update(site_params)
-      redirect_to @site
-    else
-      render 'edit'
+    respond_with(@site) do |format|
+      if @site.update(site_params)
+        flash[:notice] = "Site successfully updated."
+        format.html { redirect_to @site }
+      else
+        flash[:error] = "Sorry, failed to update site due to errors."
+        format.html { render 'edit' }
+      end
     end
   end
 
   def destroy
-    @site = Site.find(params[:id])
     @site.destroy
 
+    flash[:notice] = "Site has been deleted."
     redirect_to sites_path
   end
 
@@ -101,6 +105,7 @@ class SitesController < ApplicationController
       end
     end
   end
+
   def remove_role
     @user = User.find(params[:user_id])
     @site = Site.find(params[:site_id])
@@ -126,6 +131,11 @@ class SitesController < ApplicationController
   end
 
   private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_site
+    @site = Site.find(params[:id])
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def site_params
     params.require(:site).permit(:name, :country_id)

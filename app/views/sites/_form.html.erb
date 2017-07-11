@@ -7,7 +7,7 @@
 
             <div class="Form-group">
                 <%= f.label :country_id, "Country" %>
-                <%= f.collection_select(:country_id, @countries, :id, :name, {}, {class: "Form-control"})  %>
+                <%= f.collection_select(:country_id, @countries, :id, :name, {prompt: true}, {class: "Form-control"})  %>
             </div>
 
             <div class="Form-group">
