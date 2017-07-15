@@ -131,6 +131,19 @@ class API::ArticlesControllerTest < ActionController::TestCase
         assert_equal "Cat - updated", json_response["article"]["english"]
       end
     end
+
+    describe "when is not updated" do
+      before(:each) do
+        put :update, { format: :json, auth_token: @user.authentication_token, id: @article.id, article: { category_id: nil }}
+      end
+
+      it "renders json response for the updated article" do
+        article = json_response
+        assert_equal 422, response.status
+        assert            article["errors"]
+        assert_includes   article["errors"]["category_id"], "Category can't be blank"
+      end
+    end
   end
 
   describe "DELETE #destroy" do
