@@ -26,7 +26,7 @@
 
 12. [x] Language names are added by user. Later, this functionality will be exercised by administrator only.
 
-13. [ ] Language name in any article user can choose it from a drop down box which has only those language names which were added under the "Languages" tab ( languages added by administrator.) or none option if the language name is not in the shown list of languages. This will help peace corps to train their volunteers at any post(installation) or site in any language without any restriction. (None as an option not available.)
+13. [x] Language name in any article user can choose it from a drop down box which has only those language names which were added under the "Languages" tab ( languages added by administrator.) or none option if the language name is not in the shown list of languages. This will help peace corps to train their volunteers at any post(installation) or site in any language without any restriction. (None as an option not available.)
 
 14. [ ] All photos(articles) of a paticular language can be seen under the "Languages" tab. User has to click on "Photos" link beside the language name for selecting a paticular language. Volunteers can click on this link for their training in a paticular language. (Not implemented.)
 

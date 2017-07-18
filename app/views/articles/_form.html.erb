@@ -21,9 +21,9 @@
                 <%= f.label :language_id, "Language" %>
                 <div>
                     <% if current_user.has_any_role? :superadmin, :admin, {name: :volunteer, resource: :any} %>
-                        <%= f.collection_select(:language_id, Language.all, :id, :name, {}, {class: "Form-control"}) %>
+                        <%= f.collection_select(:language_id, Language.all, :id, :name, {:prompt => "None"}, {class: "Form-control"}) %>
                     <% elsif current_user.has_role? :contributor, :any %>
-                        <%= f.collection_select(:language_id, Language.where(name: current_user.lang), :id, :name, {}, {class: "Form-control"}) %>
+                        <%= f.collection_select(:language_id, Language.where(name: current_user.lang), :id, :name, {:prompt => "None"}, {class: "Form-control"}) %>
                     <% end %>
                 </div>
             </div>
