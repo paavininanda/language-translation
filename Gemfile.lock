@@ -121,6 +121,10 @@ GEM
       actionmailer (>= 3.2.6, < 5)
       devise (>= 3.2.0)
     docile (1.1.5)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     ember-cli-assets (0.0.35)
     ember-data-source (2.2.1)
       ember-source (>= 1.8, < 3.0)
@@ -356,6 +360,7 @@ DEPENDENCIES
   devise (~> 3.5.0)
   devise-token_authenticatable (~> 0.4.0)
   devise_invitable (~> 1.5.0)
+  dotenv-rails
   ember-rails
   ember-source (~> 1.8.1)
   emblem-rails

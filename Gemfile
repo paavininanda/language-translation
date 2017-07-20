@@ -77,6 +77,8 @@ gem 'simple-navigation'
 # A lightweight Sass tool set
 gem 'bourbon'
 
+gem 'dotenv-rails', :groups => [:development, :test]
+
 group :test do
   gem 'shoulda'
 end

@@ -34,3 +34,6 @@ config/database.yml
 
 # Ignore coverage files
 coverage/
+
+# Ignore environment variable files
+*.env

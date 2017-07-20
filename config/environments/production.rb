@@ -80,4 +80,24 @@ Plt::Application.configure do config.react.variant = :production end
 
   # config the environment for ember
   config.ember.variant = :production
+
+  config.action_mailer.default_url_options = { :host => 'pc-lang-dev.systers.org' }
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.default :charset => "utf-8"
+
+  config.action_mailer.smtp_settings = {
+    address: "smtp.sendgrid.net",
+    port: 587,
+    domain: ENV["SYSTERS_DOMAIN"],
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: ENV["SYSTERS_USERNAME"],
+    password: ENV["SYSTERS_PASSWORD"]
+  }
 end
