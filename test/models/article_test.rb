@@ -36,6 +36,11 @@ class ArticleTest < ActiveSupport::TestCase
     assert_not article.save, "Saved the article without a picture"
   end
 
+  it "is invalid without :phonetic" do
+    article = build(:article, english: "Cat", phonetic: nil, language_id: 1)
+    assert_not article.save, "Saved the article without a phonetic"
+  end
+
   it "is saved with :english, :phonetic, :language_id, :picture value but no category id" do
     article = build(:article,
                     {
@@ -104,6 +109,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   context "validations" do
     should validate_presence_of(:picture)
+    should validate_presence_of(:phonetic)
   end
 
   context "delegations" do
