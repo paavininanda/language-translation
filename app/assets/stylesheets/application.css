@@ -1,0 +1,100 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ * Whatever comes next overrides the first. This way, we can organize multiple CSS libraries together.
+ *= require bootstrap/dist/css/bootstrap
+ *= require custom-web-starter-kit
+ *= require_self
+ */
+.flash {
+color:#83c537;
+font-size:18px;
+width:600px;
+position:fixed;
+top:20px;
+right:10px;
+z-index:9999999;
+}
+.alert-error {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+ }
+
+.alert-alert {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+ }
+
+.alert-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #468847;
+    text-align: left;
+ }
+
+.alert-notice {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #468847;
+    text-align: left;
+ }
+.roop {
+    display:block;
+
+}
+
+.activity {
+width: 1050px;
+border-bottom: solid 1px #ccc;
+padding: 16px 0;
+display:block; 
+em{
+    color: #777;
+    font-size: 12px;
+   }
+}
+#filterrific_result {
+display:none;
+}
+.box1 {
+background-color: #e3e4e1;
+height:80px;
+padding: 30px 10px 30px 20px;
+}
+.gap{
+height:10px;
+}
+.box2, .box3, .box4{
+display: inline;
+}
+.box2{
+margin:10px 10px 20px 40px;
+}
+.box3{
+margin:400px 480px 50px 50px;
+}
+#search-form1{
+position:absolute;
+top:100px;
+right:800px;
+z-index:9999999;
+}
+.style{
+ padding-right: 100px;
+ width:250px; 
+ max-width:500px; 
+ display: inline-block;
+ }

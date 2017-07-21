@@ -1,0 +1,23 @@
+{
+  "name": "Photo-Language Translation",
+  "version": "0.0.0",
+  "homepage": "https://github.com/systers/language-translation",
+  "authors": [
+    "Won Wook SONG <wsong0512@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "underscore": "~1.8.3",
+    "react-bootstrap": "~0.24.3",
+    "font-source-sans-pro": "~0.1.0"
+  }
+}

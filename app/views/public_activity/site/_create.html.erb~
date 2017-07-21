@@ -1,0 +1,7 @@
+added a site
+<% if activity.trackable %>
+  <%= link_to activity.trackable.english, activity.trackable %>
+<% else %>
+  which has since been removed
+<% end %><br/>
+<small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small>

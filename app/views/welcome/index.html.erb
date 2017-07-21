@@ -1,0 +1,64 @@
+<header class="app-bar promote-layer">
+    <div class="app-bar-container">
+        <button class="menu"><span class="icon-menu"></span></button>
+
+        <div class="Heading">
+            <h1 class="title"><span>Home</span></h1>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="Form u-pushTopBottom clear">
+        <div class="g--half">
+
+            <h3 class="title">User</h3>
+            <div class="User u-pushTopBottom">
+                <a href="#" class="User-link">
+                    <% if current_user.avatar.present? %>
+                        <%= image_tag(current_user.avatar.url(:thumb))%>
+                    <% else %>
+                        <%= image_tag("user.png") %>
+                    <% end %>
+                </a>
+            </div>
+
+            <dl class="Info">
+                <dt>Name</dt>
+                <dd>
+                    <%= "#{current_user.first_name} #{current_user.last_name}" %>
+                    <%= link_to 'Edit profile', edit_user_registration_path, class: "Info-more" %>
+                </dd>
+
+                <dt>Email</dt>
+                <dd><%= current_user.email %></dd>
+
+                <% unless current_user.gender.blank? %>
+                    <%= content_tag :dt, "Gender" %>
+                    <%= content_tag :dd, current_user.gender %>
+                <% end  %>
+
+                <% unless current_user.lang.blank? %>
+                    <%= content_tag :dt, "Language Contribution" %>
+                    <%= content_tag :dd, current_user.lang %>
+                <% end  %>
+
+                <% unless current_user.location.blank? %>
+                    <%= content_tag :dt, "Location" %>
+                    <%= content_tag :dd, current_user.location %>
+                <% end  %>
+
+                <% unless current_user.contact.blank? %>
+                    <%= content_tag :dt, "Contact Number" %>
+                    <%= content_tag :dd, current_user.contact %>
+                <% end %>
+            </dl>
+        </div>
+
+        <% if !current_user.login_approval_at %>
+            <p><b>You first need to be approved to use your account. Ask your administrator for an approval.</b></p>
+        <% end %>
+
+        <div class="clear"></div>
+    </div>
+</main>

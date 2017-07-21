@@ -1,0 +1,19 @@
+<header class="app-bar promote-layer">
+<div class="Heading">
+            <h1 class="title"><span>Activity Logs</span></h1>
+        </div>
+
+</header>
+<main>
+<div class="AppControls">
+<div class="roop">
+<% @activities.each do |activity| %>
+  <div class="activity">
+  <%= render_activity activity %>
+ 
+</div> 
+
+    <% end %>
+</div>
+</div>
+</main>

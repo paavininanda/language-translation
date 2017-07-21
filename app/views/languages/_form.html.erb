@@ -1,0 +1,16 @@
+<%= form_for @language, html: {class: "Form--dual", id: "_form"} do |f| %>
+
+    <%= render partial: "shared/error_messages", object: @language %>
+
+    <div class="Form--dualDivider">
+        <div class="g--half">
+
+            <div class="Form-group">
+                <%= f.label :name %>
+                <%= f.text_field :name, class: "Form-control" %>
+            </div>
+
+        </div>
+    </div>
+
+<% end %>

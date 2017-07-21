@@ -1,0 +1,11 @@
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-edit"></span>
+  <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
+  <%= link_to activity.owner.first_name, activity.owner if activity.owner %> updated language
+<% if activity.trackable %>
+  <%= link_to activity.trackable.name, activity.trackable %>
+<% else %>
+  which has since been removed
+<% end %><br/>
+</li>
+

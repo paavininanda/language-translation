@@ -1,0 +1,77 @@
+<header class="app-bar promote-layer">
+    <div class="app-bar-container">
+        <button class="menu"><span class="icon-menu"></span></button>
+
+        <div class="Heading">
+            <h1 class="title"><span>Languages</span></h1>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="AppControls">
+        <div class="AppControls--box AppControls-left">
+	 <%= form_tag(languages_path, :method => "get", id: "search-form") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Languages" %>
+        <%= submit_tag "Search" %>
+        <% end %> 
+
+        </div>
+
+        <div class="AppControls--box AppControls-middle"></div>
+
+        <div class="AppControls--box AppControls-right">
+	 <% if can? :create, Language %>
+           <a class="button--icontext button--ricontext" href="<%= new_language_path %>"><i class="icon-plus"></i> <span>New Language</span></a>
+              
+        <% end %>
+ 
+       </div>
+    </div>
+
+    <div class="CardListTable">
+        <ul class="CardListTable-body">
+
+            <% @languages.each do |language| %>
+                <li>
+                    <ul class="CardListTableRow">
+                        <li class="CardListTable-cal u-w300px" data-th="Name">
+                            <div class="CardListTable-content">
+                                <% if can? :update, language %>
+                                    <%= link_to language.name, edit_language_path(language) %>
+                                <% else %>
+                                    <%= language.name %>
+                                <% end %>
+                            </div>
+                        </li>
+
+                        
+
+                        <% if can? :update, language %>
+                            <li class="CardListTable-cal u-w60px" data-th="Action">
+                                <div class="CardListTable-content">
+                                    <div class="dropdown">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="button--icon" href="#"><i class="icon-action"></i></a>
+                                        <ul class="dropdown-menu u-rightPopup">
+                                            <li>
+                                                <%= link_to 'Edit', edit_language_path(language) %>
+                                            </li>
+                                            <% if can? :destroy, language %>
+                                                <li>
+                                                    <%= link_to 'Delete', language_path(language), method: :delete, data: { confirm: 'Are you sure?' } %>
+                                                </li>
+                                            <% end %>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        <% end %>
+
+                    </ul>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+
+   
+</main>

@@ -1,30 +1,44 @@
-## GSoc Photo Language Translation Project 2014
-1. Gsoc Timeline : http://tyrocredence3.blogspot.in/
-2. Systers My profile page : http://systers.org/systers-dev/doku.php/saumya_gurtu
-3. Deployed project link : 
+[![Build Status](https://travis-ci.org/systers/language-translation.svg?branch=develop)](https://travis-ci.org/systers/language-translation)
 
-## PLTcode
-Its the actual rails application code
+[![Join the chat at https://gitter.im/systers/language-translation](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/systers/language-translation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-## docs
-Its contains the following files:
+## GSoc Photo Language Translation Project 2015
+1. Gsoc timeline : 
+2. Developer's Systers profile page : 
+3. Link to the deployed application : 
 
-1. Systers_GSoC14_LangTrans_Requirements.docx
-2. PC_PostRegion.xlsx
-3. plt_ProjectDocumentation.docx - Project Documentation : http://tyrocredence4.blogspot.in/
-4. plt_ProjectUnitTesting.docx - Unit Tests : http://tyrocredence7.blogspot.in/
+## Features and Specifications
+[link to wiki article](https://github.com/systers/language-translation/wiki/Features-and-Specifications)
 
-## Framework and specifications:
+## Application Structure
+[link to wiki article](https://github.com/systers/language-translation/wiki/Application-Structure)
 
-1. Rails 4.1.1
-2. Ruby 2.1.2p95
-3. Sqlite3 (development and test), postgresql (deployment)
+## Framework and specifications
+
+1. Rails 4.2.1
+2. Ruby 2.2.3p173
+3. PostgreSQL (development, test and deployment)
 
 ## How to run this application?
 
-1. Download the zip PLTcode file from repository.
-2. Extract the folder and type "cd foldername".
-3. Do "rake db:migrate".
-4. Do "rake db:seed".
-5. Do "rails s" and open the link it asks you to in your web browser.
-6. Now use the application as you like :)
+1. Clone the repository : `git clone https://github.com/systers/language-translation.git`. Check into the directory after cloning.
+
+2. Install PostgreSQL (Version 8.2 and above supported) and npm.
+
+3. Rename config/database.yml.example to config/database.yml : `mv config/database.yml.example config/database.yml`.
+
+4. Update the config/database.yml file with your host name, postgresql username and password.
+
+5. To setup the application run, `rake db:setup`.
+
+6. Install bower using npm : `npm install -g bower`.
+
+7. To install bower components, Run `bower install`.
+
+8. To run the rails application, Run `rails s`.
+
+9. Open `localhost:3000` on your browser to run the application.
+
+10. To run the testing suite, Run `rake`.
+
+11. To view the coverage details, From application root, open coverage directory (`cd coverage`) and run `python -m SimpleHTTPServer` and visit `localhost:8000` on your browser.

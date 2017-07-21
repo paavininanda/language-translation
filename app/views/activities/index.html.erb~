@@ -1,0 +1,20 @@
+<header class="app-bar promote-layer">
+<div class="Heading">
+            <h1 class="title"><span>Categories</span></h1>
+        </div>
+
+</header>
+<main>
+<div class="AppControls">
+<div class="roop">
+<% @activities.each do |activity| %>
+  <div class="activity">
+   <%= link_to activity.owner.first_name, activity.owner if activity.owner %>
+  <%= render_activity activity %>
+ 
+</div> 
+
+    <% end %>
+</div>
+</div>
+</main>

@@ -1,0 +1,77 @@
+<header class="app-bar promote-layer">
+    <div class="app-bar-container">
+        <button class="menu"><span class="icon-menu"></span></button>
+
+        <div class="Heading">
+            <h1 class="title"><span>Organizations</span></h1>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="AppControls">
+        <div class="AppControls--box AppControls-left">
+       	 <%= form_tag(organizations_path, :method => "get", id: "search-form") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Languages" %>
+        <%= submit_tag "Search" %>
+        <% end %> 
+      </div>
+
+        <div class="AppControls--box AppControls-middle"></div>
+
+        <div class="AppControls--box AppControls-right">
+	<% if can? :create, Organization %>
+ <a class="button--icontext button--ricontext" href="<%= new_organization_path %>"><i class="icon-plus"></i> <span>New Organization</span></a>
+        <% end %>
+        </div>
+    </div>
+
+    <div class="CardListTable">
+        <ul class="CardListTable-body">
+           <h3> List of all Organisations</h3>
+            <% @organizations.each do |organization| %>
+                <li>
+                    <ul class="CardListTableRow">
+                        <li class="CardListTable-cal u-w300px">
+                            <div class="CardListTable-content">
+                                <% if can? :update, organization %>
+				   <a class="button--icontext button--ricontext" href="<%=  edit_organization_path(organization) %>" <%= link_to organization.name %></a>
+                               <% else %>
+                                    <%= organization.name %>
+                                <% end %>
+                            </div>
+                        </li>
+                        <% if can? :update, organization %>
+                            <li class="CardListTable-cal CardListTable-cal--noheading u-w60px tar" data-th="Action">
+                                <div class="CardListTable-content">
+                                    <div class="dropdown">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="button--icon" href="#"><i class="icon-action"></i></a>
+                                        <ul class="dropdown-menu u-rightPopup">
+                                            <li>
+                                                <%= link_to 'Edit', edit_organization_path(organization) %>
+                                            </li>
+                                            <li>
+                                                <% if can? :destroy, organization %>
+                                                    <%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %>
+                                                <% end %>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        <% end %>
+
+                    </ul>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+    <div class="AppControls">
+         <div class="AppControls--box AppControls-right">
+	     <button class="button--icontext button--ricontext">
+     		 <%= link_to 'List of vounteers and contributors', sites_path %>
+    	    </button>
+    	</div>
+   </div>
+ 
+</main>

@@ -1,0 +1,81 @@
+<div class="User-content">
+    <h3>Create New Account</h3>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "Form"}) do |f| %>
+        <%= render partial: "shared/error_messages", object: resource %>
+
+        <div class="Form-group">
+            <%= f.label :organization_id, "Organization" %>
+            <%= f.collection_select(:organization_id, Organization.all, :id, :name, {prompt: true}, {class: "Form-control"}) %>
+        </div>
+
+        <div class="Form-group">
+            <%= f.label :email %>
+            <%= f.text_field :email, class: "Form-control" %>
+        </div>
+
+        <div class="Form-group">
+            <%= f.label :username %>
+            <%= f.text_field :username, class: "Form-control" %>
+        </div>
+
+        <div class="Form-group">
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name, class: "Form-control" %>
+        </div>
+
+        <div class="Form-group">
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name, class: "Form-control" %>
+        </div>
+
+        <div class="Form-group">
+            <%= f.label :gender %>
+            <div>
+                <label>
+                    <%= f.radio_button :gender, 'Male', checked:true %> Male
+                </label>
+                <label>
+                    <%= f.radio_button :gender, 'Female' %> Female
+                </label>
+            </div>
+        </div>
+
+        <div class="Form-group">
+             <%= f.label :location %>
+             <%= f.collection_select(:location, Country.all, :name, :name, {include_blank: "None"}, {class: "Form-control"}) %>
+        </div>
+
+        <div class="Form-group">
+            <%= f.label :lang %>
+            <%= f.collection_select(:lang, Language.all, :name, :name, {include_blank: "None"}, {class: "Form-control"}) %>
+        </div>
+
+        <div class="Form-group">
+            <%= f.label :password %>
+            <%= f.password_field :password, class: "Form-control" %>
+        </div>
+
+        <div class="Form-group">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, class: "Form-control" %>
+        </div>
+ <div class="Form-group">.
+             <%= f.label :avatar do %>
+             <%= f.file_field :avatar %>
+             <%= f.hidden_field :avatar_cache %>
+             <% end %>
+	  </div>
+
+       <div>
+            <button class="button button--primary" type="submit">Sign Up</button>
+            <%- if controller_name != 'sessions' %>
+                <%= link_to "Sign in", new_session_path(resource_name), class: "u-fr links u-links" %>
+            <% end -%>
+        </div>
+    <% end %>
+</div>
+
+<div class="User-footer">
+    <p class="u-pushTop20">&nbsp;</p>
+</div>

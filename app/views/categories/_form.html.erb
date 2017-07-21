@@ -1,0 +1,15 @@
+<%= form_for @category, html: {class: "Form--dual", id: "_form"} do |f| %>
+
+    <%= render partial: "shared/error_messages", object: @category %>
+
+    <div class="Form--dualDivider">
+        <div class="g--half">
+
+            <div class="Form-group">
+                <%= f.label :name, "Name" %>
+                <%= f.text_field :name, class: "Form-control" %>
+            </div>
+
+        </div>
+    </div>
+<% end %>

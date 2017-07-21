@@ -1,0 +1,100 @@
+<%= form_for @article, html: {class: "Form--dual", id: "_form"} do |f| %>
+
+    <%= render partial: "shared/error_messages", object: @article %>
+
+    <div class="Form--dualDivider">
+        <div class="g--half">
+
+            <div class="Form-group">
+                <%= f.label :picture %>
+                <br>
+                <%= image_tag(@article.picture_url) if @article.picture.present? %>
+                <br><br>
+                <%= f.file_field :picture, class: "Form-control" %>
+
+                <% if @article.picture.present? %>
+                    <span class="help-inline">( If you wish to update the above picture, click on choose file and upload the new picture.)</span>
+                <% end %>
+            </div>
+
+            <div class="Form-group">
+                <%= f.label :language_id, "Language" %>
+                <div>
+                    <% if current_user.has_any_role? :superadmin, :admin, {name: :volunteer, resource: :any} %>
+                        <%= f.collection_select(:language_id, Language.all, :id, :name, {:prompt => "None"}, {class: "Form-control"}) %>
+                    <% elsif current_user.has_role? :contributor, :any %>
+                        <%= f.collection_select(:language_id, Language.where(name: current_user.lang), :id, :name, {:prompt => "None"}, {class: "Form-control"}) %>
+                    <% end %>
+                </div>
+            </div>
+
+            <div class="Form-group">
+                <%= f.label :category %>
+                <%= f.collection_select(:category_id, @categories, :id, :name, {}, {class: "Form-control"}) %>
+            </div>
+
+            <div class="Form-group">
+                <%= f.label :english, "English Text" %>
+                <%= f.text_field :english, class: "Form-control" %>
+            </div>
+
+            <div class="Form-group">
+                <%= f.label :phonetic, "Phonetic Text" %>
+                <%= f.text_field :phonetic, class: "Form-control" %>
+            </div>
+
+            <% if can?(:delete, Article) %>
+                <div class="Form-group">
+                    <%= f.label :state, "Publish" %>
+                    <%= f.select :state, [["Unpublish", 'draft'], ['Publish', 'published']], {}, class: "Form-control" %>
+                </div>
+            <% end %>
+
+        </div>
+
+        <div class="g--half g--last">
+
+          <h3>Audio Translations</h3>
+          <span class="help-inline">( If you wish to update the audio, click on bchoose file for the corresponding text and update the audio.)</span>
+          <br><br>
+            <div class="clear">
+              <div class="g--half">
+                <div class="Form-group">
+                  <%= label_tag "Text" %>
+                </div>
+              </div>
+
+              <div class="g--half g--last">
+                <div class="Form-group">
+                  <%= label_tag "Audio File" %>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+
+          <div class="AudioContainer">
+              <%= f.fields_for :audios do |audio|%>
+                <div class="clear audioBox">
+                  <div class="g--half">
+                    <div class="Form-group">
+                      <%= audio.text_field :content, class: "Form-control" %>
+                    </div>
+                  </div>
+
+                  <div class="g--half g--last">
+                    <div class="Form-group">
+                      <%= audio.file_field :audio, class: "Form-control Media--file" %> 
+                      <%= audio.check_box :_destroy, class: "Form-control hide" %> 
+                      <a href="#" class="Close Close--cross u-fr removeAudioFile"><span class="icon-close"></span></a>
+                    </div>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              <% end %>
+          </div>
+
+          <a href="#" class="addMoreAudio">Add More</a>
+
+        </div>
+    </div>
+<% end %>

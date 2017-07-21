@@ -1,0 +1,72 @@
+<%= form_for @user, html: {class: "Form--dual", id: "_form"} do |f| %>
+    <%= render partial: "shared/error_messages", object: @user %>
+
+    <div class="Form--dualDivider">
+        <div class="g--half">
+
+            <div class="Form-group">
+                <%= f.label :email %>
+                <%= f.email_field :email, class: "Form-control" %>
+            </div>
+
+            <div class="Form-group">
+                <%= f.label :username %>
+                <%= f.text_field :username, class: "Form-control" %>
+            </div>
+
+            <div class="Form-group">
+                <%= f.label :first_name %>
+                <%= f.text_field :first_name, class: "Form-control" %>
+            </div>
+
+            <div class="Form-group">
+                <%= f.label :last_name %>
+                <%= f.text_field :last_name, class: "Form-control" %>
+            </div>
+
+            <div class="Form-group">
+                <%= f.label :gender %>
+                <div class="Form-control--radio">
+                    <label>
+                        <%= f.radio_button :gender, 'Male', checked:true %> Male
+                    </label>
+
+                    <label>
+                        <%= f.radio_button :gender, 'Female' %> Female
+                    </label>
+                </div>
+            </div>
+
+            <div class="Form-group">
+                <%= f.label :location %>
+                <%= f.collection_select(:location, Country.all, :name, :name, {include_blank: "None"}, {class: "Form-control"}) %>
+            </div>
+
+            <div class="Form-group">
+                <%= f.label :lang, "Language Contribution" %>
+                <%= f.collection_select(:lang, Language.all, :name, :name, {include_blank: "None"}, {class: "Form-control"}) %>
+            </div>
+
+            <div class="Form-group">
+                <%= f.label :contact, "Contact Number" %>
+                <%= f.text_field :contact, class: "Form-control" %>
+            </div>
+
+            <% if f.object.new_record? %>
+              <div class="Form-group">
+                  <label for="user_no_invitation">
+                    <%= f.check_box :no_invitation, class: "noInvitation" %> Don't send invitation email
+                  </label>
+              </div>
+
+              <div class="Form-group withPassword <%= f.object.no_invitation ? "" : "hide" %>">
+                  <%= f.label :password %>
+                  <%= f.password_field :password, class: "Form-control" %>
+              </div>
+	      <legend>Avatar</legend>
+	      <%= f.file_field :avatar %>	
+            <% end %>
+
+        </div>
+    </div>
+<% end %>

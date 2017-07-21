@@ -1,0 +1,20 @@
+<%= form_for @site, html: {class: "Form--dual", id: "_form"} do |f| %>
+
+    <%= render partial: "shared/error_messages", object: @site %>
+
+    <div class="Form--dualDivider">
+        <div class="g--half">
+
+            <div class="Form-group">
+                <%= f.label :country_id, "Country" %>
+                <%= f.collection_select(:country_id, @countries, :id, :name, {}, {class: "Form-control"})  %>
+            </div>
+
+            <div class="Form-group">
+                <%= f.label :name, "Site" %>
+                <%= f.text_field :name, class: "Form-control" %>
+            </div>
+
+        </div>
+    </div>
+<% end %>

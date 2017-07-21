@@ -1,0 +1,471 @@
+/*
+ * Web Starter Kit
+ *
+ * Multi-screen layout styles for your page. Brought to you by the
+ * Web Starter Kit team.
+ *
+ */
+
+@import '_h5bp';
+@import '_font-face';
+@import 'bourbon';
+
+/*
+ * Visual Style Guide styles
+ * Remove if you prefer to use a CSS library, like Bootstrap
+ */
+
+@import 'components/components';
+
+
+html,
+body { width: 100%; height: 100%; margin: 0; padding: 0; }
+body {
+  position: relative;
+  font-weight: 300;
+  box-sizing: border-box;
+  min-height: 100%; @include ff(r);
+  background-color: $colorGrayBackground;
+  color: $colorText;
+}
+body.open { overflow: hidden; }
+
+.app-bar {
+  display: block;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #FFF;
+  border-bottom: 1px solid #BBB;
+  overflow: hidden;
+  z-index: 1;
+}
+.app-bar-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 40px;
+  position: relative;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction:
+  row; margin: 0 auto;
+}
+
+.app-bar.open,
+.app-bar.open ~ main {
+  -webkit-transform: translate(200px, 0);
+  transform: translate(200px, 0);
+}
+
+.app-bar .Heading {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-size: 2em;
+  line-height: 40px;
+  margin: 0;
+  padding: 0;
+  float: none;
+  max-width: none;
+
+  .title {
+    padding-top: 0;
+    display: initial;
+    @include ff(s);
+    font-size: $fontBase;
+    vertical-align: middle;
+    span { padding-right: 20px; }
+  }
+}
+.app-bar .Heading a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: normal;
+}
+.app-bar-actions {
+  margin: 0 5px 0 0;
+  padding: 0;
+  list-style: none;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  z-index: 2;
+
+  li { margin: 0; padding-left: 5px; list-style: none; }
+  @include wide {
+    margin: 0;
+    li { margin-left: 10px; }
+  }
+}
+.app-bar button.menu {
+  width: 40px;
+  height: 40px;
+  background-image: none;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  display: inline-block;
+  -webkit-transition: background-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-bar button.menu:hover { outline: 0; }
+.app-bar button.menu:focus { outline: 0; }
+.app-bar button.menu:active { outline: 0; background-color: $colorGrayBackground; }
+.promote-layer {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.navdrawer-container {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 200px;
+  background-color: $colorGrayDark;
+  color: #FFF;
+  -webkit-transform: translate(-200px, 0);
+          transform: translate(-200px, 0);
+  overflow-y: auto;
+}
+
+.navdrawer-container.open {
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+}
+
+.app-bar,
+.navdrawer-container.opened,
+main {
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+          transition: transform 0.3s ease-out;
+}
+
+.navdrawer-container ul li a {
+  padding: 10px 16px;
+  line-height: 1.4;
+  font-size: $fontSmall;
+}
+
+.UserDetails {
+  vertical-align: middle;
+  padding-left: 50px;
+
+  .UserDetails-link {
+    height: 40px;
+    padding: 8px 16px;
+    width: 100%;
+    line-height: 1.4;
+    display: block;
+    vertical-align: middle;
+    text-decoration: none;
+    color: #444;
+  }
+    .UserDetails-link {
+      .icon-chevron-down-thin {
+        &:before {
+          position: relative;
+          top: -2px;
+          font-size: 13px;
+          content: "\e607";
+        }
+      }
+    }
+    .open .UserDetails-link {
+      .icon-chevron-down-thin {
+        &:before {
+          content: '\e606';
+        }
+      }
+    }
+
+    img {
+      width: 24px;
+      border: 1px solid #FFF;
+      height: 24px;
+      float: left;
+      display: inline-block;
+      @include border-radius(50%);
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    span { @include type--medium; }
+
+    .dropdown-menu {
+      top: 70px;
+      position: absolute;
+      min-width: 160px;
+      text-align: left;
+      background-color: #ffffff;
+      border: 1px solid #9B9B9B;
+      border-radius: 3px;
+    }
+}
+
+.is-UserDetails { background-color: #111;
+  .MainMenu, .MainMenu + ul { display: none; }
+}
+
+.navdrawer-container ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.navdrawer-container ul li a {
+  display: block;
+  text-decoration: none;
+  color: #9B9B9B;
+  -webkit-transition: background-color 0.2s ease-out;
+          transition: background-color 0.2s ease-out;
+  white-space: nowrap;
+}
+
+.navdrawer-container ul li {
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: #BBB;
+  padding: 0;
+}
+
+.navdrawer-container ul li::before {
+  content: none;
+}
+
+.navdrawer-container ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #000;
+}
+
+.navdrawer-container ul li a:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+  outline: 0;
+}
+
+.navdrawer-container ul li a:active {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+main {
+  margin: 0 auto;
+  /* Height of the header */
+  padding: 40px 16px 16px 16px;
+  min-height: 100%;
+  h3 { @include rule--medium(); padding: 0; margin: 0 0 10px 0; }
+}
+
+.AppControls {
+  @include align-items(stretch);
+  @include display(flex);
+  @include flex-direction(row);
+  @include justify-content(flex-start);
+  padding: 16px 0;
+}
+
+.AppControls-left {
+  @include flex(3);
+}
+
+.AppControls-middle {
+  @include flex(1);
+  .button--icon { margin-left: 16px; }
+}
+
+.AppControls-right {
+  text-align: right;
+  @include flex(1);
+  .text-link {
+    margin-right: 20px; text-decoration: none; color: #4A90E2;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/** Larger Screens - desktops and tablets **/
+@media all and (min-width: 990px) {
+  .app-bar {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    margin-left: 230px;
+    border-bottom: 1px solid #BBB;
+  }
+
+  .app-bar.open,
+  .app-bar.open ~ main {
+    -webkit-transform: translate(0px, 0);
+            transform: translate(0px, 0);
+  }
+
+  .app-bar-container {
+    padding: 0 20px;
+    box-sizing: border-box;
+    background-color: #FFF;
+    height: 76px;
+  }
+
+  .app-bar .Heading {
+    .title {
+      margin: 0;
+      padding: 0;
+      font-size: $fontMedium;
+      @include ff(s);
+      line-height: 76px;
+      span { padding-right: 0; }
+    }
+  }
+
+  .app-bar::after {
+    content: ' ';
+    display: block;
+    height: 0;
+    overflow: hidden;
+    clear: both;
+  }
+
+  .app-bar button.menu {
+    display: none;
+  }
+
+  .navdrawer-container {
+    width: 230px;
+    border-right: 1px solid #D6E5F6;
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+    -webkit-transition: none;
+            transition: none;
+  }
+
+  .app-bar-actions {
+    margin-right: 230px;
+  }
+
+  .UserDetails {
+   .UserDetails-link { height: 76px;  padding: 20px 20px; }
+      img { width: 36px; border: 2px solid #FFF; height: 36px; }
+      .UserDetails-name { line-height: 36px; }
+  }
+
+  .navdrawer-container ul.MainMenu {
+    padding-bottom: 20px;
+    border-top: 1px solid #BBB;
+  }
+
+  .navdrawer-container ul.sidebarNav {
+    padding: 15px 0 15px 50px;
+  }
+
+  .navdrawer-container ul li {
+    border: none;
+  }
+  .navdrawer-container ul li a {
+    font-size: 15px;
+    padding: 7px 16px;
+  }
+  .navdrawer-container ul li a.active {
+    color: #000;
+  }
+  .navdrawer-container ul li a:hover, .navdrawer-container ul li a:active, .navdrawer-container ul li a:focus {
+    background-color: transparent;
+  }
+
+  main {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    padding-top: 0;
+    min-height: initial;
+    margin-left: 230px;
+    padding: 76px 20px 20px 20px;
+  }
+
+  body {
+    overflow-y: scroll;
+  }
+
+  footer {
+    padding-top: 0;
+    min-height: initial;
+    margin-left: 230px;
+    padding: 20px 20px 20px 20px;
+
+    ul {
+      padding: 0;
+      li {
+        display: inline;
+        a { text-decoration: none; }
+      }
+    }
+
+  }
+
+  .AppControls {
+    padding: 20px 0;
+  }
+  .AppControls-left {
+    @include flex(1);
+  }
+  .AppControls-middle {
+    @include flex(2);
+  }
+}
+
+.Info { margin-top: 0;
+  background-color: #FFF; @include border-radius(3px); border: 1px solid #DDDDDD;
+  dt { width: 120px; float: left; background-color: #E3E4E1; padding: 7px 10px; border-bottom: 1px solid #DDDDDD; font-family: $fontHighlight; @include ellipsis();
+        &:last-child { border: none; }
+  }
+
+  dd { padding: 7px 10px; border-bottom: 1px solid #DDDDDD; margin: 0 0 0 120px; word-wrap: break-word;
+        &:last-child { border: none; }
+  }
+
+  @include wide {
+    dt { width: 185px; }
+    dd { margin: 0 0 0 185px;  }
+  }
+  .Info-more { float: right; text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+.hide { display: none; }
+
+.User {
+  .User-image { width: 50px; height: 50px; border: 2px solid #9B9B9B; display: inline-block; @include border-radius(50%); vertical-align: middle; }
+}
+
+.History-list {
+  margin: 0; padding: 0;
+  dt { margin: 0; padding: 0; float: left; width: 90px; line-height: 1.3; }
+  dd { margin: 0; padding: 0; margin-left: 90px; line-height: 1.3; }
+}
+
+.User {
+  main { margin: 0; padding: 0;}
+  .User-content {
+    width: 350px; margin: 0 auto; padding: 20px; background-color: #FFF; border: 1px solid #DDD; @include border-radius(3px);
+    .button.button--primary { margin: 0; }
+  }
+  .Logo { width: 120px; margin: 20px auto; padding: 0; text-align: center; }
+  .User-footer { margin-bottom: 50px; width: 300px; margin: 0 auto; padding: 0;
+    p { padding-top: 10px; padding-bottom: 50px; text-align: center;
+      a { text-decoration: none; font-size: 14px;
+        &:hover { text-decoration: underline;  }
+      }
+    }
+  }
+
+  @include wide {
+    .Logo { margin: 50px auto; }
+  }
+
+}

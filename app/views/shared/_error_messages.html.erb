@@ -1,0 +1,18 @@
+<% error_message_object = error_messages.is_a?(ActionView::Helpers::FormBuilder) ? error_messages.object : error_messages %>
+
+<div id="ErrorBox">
+    <%= content_tag :div, class: "ErrorExplanation" do %>
+        <div class="alert error_message">
+            <%= content_tag :h2, "Prohibited this #{error_message_object.class.name.try(:downcase)} from being saved:" %>
+
+            <ul>
+                <% error_message_object.errors.full_messages.each do |msg| %>
+                    <% unless msg.blank? %>
+                        <li><%= msg %></li>
+                    <% end %>
+                <% end %>
+            </ul>
+            <a href="#" class="Close Close--cross" id="close-error"><span class="icon-close"></span></a>
+        </div>
+    <% end if error_message_object.errors.any? %>
+</div>

@@ -1,0 +1,18 @@
+	
+        <%= form_tag(users_path, :method => "get", id: "search-form1") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Members" %>
+        <%= submit_tag "Search" %>
+        <% end %> 
+
+
+<%= react_component 'UsersIndexBox',
+                    {
+			    current_user: current_user.id,
+                            users: @users,
+                            organizations: Organization.order(:id) ,
+                            admins: User.with_role(:admin).map{|a| a.id},
+                            volunteers: User.with_role(:volunteer, :any).map{|a| a.id},
+                            contributors: User.with_role(:contributor, :any).map{|a| a.id}
+                    } %>
+
+

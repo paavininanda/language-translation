@@ -1,0 +1,7 @@
+<%= react_component 'UsersShowBox',
+                    {
+                            current_user_roles: current_user.roles.map{|a| a.name},
+                            user: @user,
+                            user_roles: @user.roles.map{|a| a.name},
+                            organization: @user.organization
+                    } %>

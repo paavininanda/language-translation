@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Peace Corps</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <%= stylesheet_link_tag    'application' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+</head>
+
+<body>
+<% flash.each do |name, msg| %>
+    <%= content_tag :section, msg, :id => "flash_#{name}", :class => "flash" %>
+<% end %> 
+    <%= yield %>
+    <%= render "shared/header" %>
+    <%= javascript_include_tag 'mobile_menu' %>
+</body>
+</html>

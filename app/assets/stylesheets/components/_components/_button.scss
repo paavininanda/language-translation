@@ -1,0 +1,200 @@
+/**
+*
+* Button
+*
+**/
+
+.button {
+    margin-bottom: 5px;
+    margin-top: 5px;
+  @include wide {
+    display: inline-block;
+    padding: 6px 30px;
+    margin-bottom: $lineHeight;
+    margin-top: $lineHeight;
+    min-height: $lineHeight;
+    text-align: center;
+    text-decoration: none;
+    outline: 0;
+    transition: none;
+    &:hover {
+      background: #4d4d4d;
+      color: #ffffff;
+      text-decoration: none;
+    }
+  }
+  &:active, &:focus {
+    outline: none;
+  }
+  &:active {
+    position:relative;
+    top:1px;
+  }
+}
+
+// Mixin to create buttons
+@mixin style-button($color, $textColor, $isInverted: false) {
+  background: $color;
+  color: $textColor;
+  @include border-radius(3px);
+  border: 1px solid darken($color, 10%);
+  @if $isInverted { border-color: transparent;}
+  &:hover {
+    background: lighten($color, 5%);
+  }
+  &:visited, &:active, &:focus {
+    color: $textColor;
+  }
+
+}
+
+
+.button--primary {
+  @extend .button;
+  @include style-button($colorBlue, #ffffff, true);
+}
+
+.button--secondary {
+  @extend .button;
+  @include style-button($colorGrayBackground, #4B514B, true);
+  &:hover {
+    color: #000000; background: darken($colorGrayBackground, 5%);
+  }
+}
+.button--danger {
+  @extend .button;
+  @include style-button($colorDanger, #FFF, true);
+}
+
+.button--secondary-variation {
+  @extend .button;
+  @include style-button(#ffffff, $colorBlue, true);
+  padding-left: 12px; padding-right: 12px;
+  &:hover {
+    color: #000000;
+  }
+}
+
+
+.button--icon {
+  width: 36px; height: 30px; display: block; background-color: #FFF; border: 1px solid $colorGrayKeyline; border-radius: 3px; text-align: center; text-decoration: none;
+  i:before {
+    color: $colorGrayKeyline;
+  }
+  &:hover {
+    border: 1px solid $colorGreen;
+    i:before {
+      color: $colorGreen;
+    }
+  }
+  &:active, &:focus {
+    outline: none;
+    border: 1px solid $colorGreen;
+    i:before {
+      color: $colorGreen;
+    }
+  }
+  .CardListTable-content & {
+    border: none; background-color: transparent; font-size: 20px;
+    &:hover, &:active, &:focus {
+      border: none; background-color: transparent; color: #000;
+      i:before {
+        color: #000;
+      }
+    }
+    + .dropdown-menu  {
+      margin-top:  -7px; margin-right: 7px;
+    }
+  }
+}
+
+.button--icontext {
+  height: 30px; 
+  display: inline-block; 
+  background-color: #FFF; 
+  border: 1px solid $colorBlue; 
+  border-radius: 3px; 
+  text-align: left; 
+  text-decoration: none; 
+  padding-right: 10px; 
+  padding-left: 0; 
+  @include ff(s); 
+  color: $colorText; 
+  font-size: 15px; 
+  line-height: 1.7;
+
+    i { display: inline-block; 
+        width: 30px; 
+        height: 28px; 
+        background-color: $colorBlue; 
+        padding-left: 2px; 
+        -webkit-border-top-left-radius: 2px;
+        -webkit-border-bottom-left-radius: 2px;
+        -moz-border-radius-topleft: 2px;
+        -moz-border-radius-bottomleft: 2px;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px; color: #FFF; font-size: 30px; 
+        &:before {
+          vertical-align: top; position: relative; left: -2px;
+        }
+      }
+
+      &:hover {
+        color: #000;
+      }
+      &:visited {
+        span { color: $colorText; }
+          i {
+            &:before {
+              color: #FFF !important;
+            }
+      }
+    }
+
+  &:active, &:focus {
+    outline: none; border: 1px solid $colorBlue;
+    i {
+      background-color: $colorBlue;
+    }
+    i:before {
+      color: #000 !important;
+    }
+  }
+
+}
+
+.button--ricontext { padding-right: 0;
+  span { display: none; }
+      @include wide {
+        padding-right: 20px;
+        span { padding-left: 10px; display: inline-block; }
+      }
+}
+
+.Back {
+  border: none; padding: 0; color: #4B514B; background-color: transparent; font-size: $fontBase; width: 40px;
+  height: 40px; display: inline-block; vertical-align: top;  
+  &:hover {
+    background: darken($colorGrayBackground, 5%);
+
+  }
+  &:active, &:focus {
+    outline: none; border: none; outline: none !important; 
+  }
+  &:active {
+    position:relative;
+    top:1px;
+  }
+  .Back-text { display: none; }
+
+  @include wide {
+     background-color: #F2F2F2; @include border-radius(3px); margin-right: 10px;  padding: 0 15px; line-height: 36px; width: auto; height: auto; vertical-align: middle;
+    .icon-chevron-left-thin {
+      display: none;
+    }
+    .icon-chevron-left-thin {
+      display: none;
+    }
+    .Back-text { display: inline-block; }    
+  }
+}

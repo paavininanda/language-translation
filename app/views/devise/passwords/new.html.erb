@@ -1,0 +1,23 @@
+<div class="User-content">
+
+    <h3>Reset your password</h3>
+
+    <%= form_for(resource, as: resource_name, url: user_password_path, html: { method: :post, class: "Form"}) do |f| %>
+        <%= render partial: "shared/error_messages", object: resource %>
+
+        <div class="Form-group">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, class: "Form-control" %>
+        </div>
+
+        <div class="Form-group">
+            <%= f.submit "Send reset password instructions", class: "button button--primary" %>
+        </div>
+    <% end %>
+</div>
+
+<div class="User-footer">
+    <p class="u-pushTop20">
+        <%= link_to "Know your password? Sign in" , new_user_session_path, class: "links u-links" %>
+    </p>
+</div>

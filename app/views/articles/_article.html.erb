@@ -1,0 +1,51 @@
+<div id="filterrific_results">
+<table>
+    <thead>
+    <tr>
+      <th>Picture</th>
+      <th>English</th>
+      <th>Phonetic</th>
+      <th>Category</th>
+      <th>Language</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+  <% @articles.each do |article| %>
+    
+ <tbody>
+     <tr>
+   
+        <td><%= link_to image_tag(article.picture.thumb.url, width: 50), article_path(article) if article.picture.present? %></td>
+        <td><%= article.english %></td>
+        <td><%= article.phonetic %></td>
+        <td><%= article.category.try(:name) %></td>
+        <td><% if article.language.present? %>
+                    <%= article.language.name %>
+              <% else %>
+                     edit
+                 <% end %>
+        </td>
+        <td><% if can? :update, article %>
+               <%= link_to 'Edit', edit_article_path(article) %>
+                  
+            <% end %>
+           <% if can? :destroy, article %>
+           <%= link_to 'Delete', article_path(article), method: :delete, data: { confirm: 'Are you sure?' } %>
+           <% end %>
+        </td>
+  </tr>
+    </tbody>
+   <% end %>
+  
+ </table>
+</div>
+
+
+
+
+
+
+
+
+
+
