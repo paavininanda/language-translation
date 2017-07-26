@@ -66,7 +66,7 @@
 
 3. [x] Fields like Gender, location - dropdown list of country(installation) names which need to be added in code if new installations are added - in app/views/devise/registrations/edit.html.erb and app/views/users/_form.html.erb , contact number, email id can be added later after sign up form, by clicking on "Edit Profile" link.
 
-4. [x] In every sign up form, login approval is 'Not Yet' by default, which will be set by admin for volunteers to login and volunteers and admin for contributers to log in.
+4. [x] In every sign up form, login approval is 'Not Yet' by default, which will be set by admin for volunteers to login and volunteers and admin for 
 
 5. [x] Change password in "Edit Profile".
 
