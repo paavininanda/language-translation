@@ -42,15 +42,15 @@
 
 20. [ ] All sites under a post(installation) can be seen under "Posts" tab. Click "Show" for a particular post(installation) to see all contact information of post(installation) and number of sites in it. (Unable to find implementation.)
 
-21. [ ] CAREFUL! : If a particular site is deleted, all the volunteer names under that site are automatically deleted. (Will test this and update here.)
+21. [ ] CAREFUL! : If a particular site is deleted, all the volunteer names under that site are automatically deleted.
 
-22. [ ] CAREFUL! : If a particular post(installation) is deleted, all the sites under that post(installation) are automatically deleted. (What does installation mean here ?)
+22. [x] CAREFUL! : If a particular post(installation) is deleted, all the sites under that post(installation) are automatically deleted.
 
 23. [x] Photos(Articles), Sites, Volunteers and Contributors table are sorted in descending order,i.e., last created is at the top and the first created is at the bottom.
 
-24. [ ] Admin can view and edit the volunteer contact information - except for volunteer's username and password. (Yet to test this as admin panel not working)
+24. [ ] Admin can view and edit the volunteer contact information - except for volunteer's username and password.
 
-25. [ ] Admin can enter the volunteer or contributor to use the application ,i.e., Login Approval = 'Not Yet' (before approval) to Login Approval = 'Yes'(after approval). (Yet to test this as admin panel not working)
+25. [ ] Admin can enter the volunteer or contributor to use the application ,i.e., Login Approval = 'Not Yet' (before approval) to Login Approval = 'Yes'(after approval).
 
 26. [ ] Application must work offline. (Unable to find implementation.)
 
@@ -70,7 +70,7 @@
 
 3. [ ] Fields like Gender, location - dropdown list of post(installation) names which need to be added in code if new installations are added - in app/views/devise/registrations/edit.html.erb and app/views/users/_form.html.erb , contact number, email id can be added later after sign up form, by clicking on "Edit Profile" link. (Email is made compulsory)
 
-4. [ ] In every sign up form, login approval is 'Not Yet' by default, which will be set by admin for volunteers to login and volunteers and admin for contributers to log in. (Yet to test this as admin panel not working)
+4. [ ] In every sign up form, login approval is 'Not Yet' by default, which will be set by admin for volunteers to login and volunteers and admin for contributers to log in.
 
 5. [x] Change password in "Edit Profile".
 
@@ -80,11 +80,11 @@
 
 ## Using CanCanCan
 
-1. [ ] Articles posted by any user is approved by volunteers/admin. If the volunteer/admin doesn't approve of the article, he/she may delete it. (Yet to test this as admin panel not working)
+1. [ ] Articles posted by any user is approved by volunteers/admin. If the volunteer/admin doesn't approve of the article, he/she may delete it.
 
 2. [ ] Any user can edit a photo(article). (Contributor can't edit Language)
 
-3. [ ] Only admin approves the signed up contributors to log into the application. (Yet to test this as admin panel not working)
+3. [ ] Only admin approves the signed up contributors to log into the application.
 
 4. [x] All permissions to admin.
 

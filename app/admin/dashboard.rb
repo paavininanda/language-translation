@@ -58,7 +58,8 @@ ActiveAdmin.register_page "Dashboard" do
             Article.unscoped.order("updated_at").last(20).map do |article|
               language_name = if article.language_id then Language.find(article.language_id).name else 'Language not selected' end
               category_name = if article.category_id then Category.find(article.category_id).name else 'Category not selected' end
-              li link_to(article.english + " (" + language_name + ", " + category_name + ")", admin_article_path(article))
+              article_english = if article.english then article.english else '' end
+              li link_to(article_english + " (" + language_name + ", " + category_name + ")", admin_article_path(article))
             end
           end
         end
