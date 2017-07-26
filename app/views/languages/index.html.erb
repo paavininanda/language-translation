@@ -54,6 +54,9 @@
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="button--icon" href="#"><i class="icon-action"></i></a>
                                         <ul class="dropdown-menu u-rightPopup">
                                             <li>
+                                                <%= link_to "Photos", language_articles_path(language) %>
+                                            </li>
+                                            <li>
                                                 <%= link_to 'Edit', edit_language_path(language) %>
                                             </li>
                                             <% if can? :destroy, language %>
