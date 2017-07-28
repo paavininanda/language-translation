@@ -7,7 +7,7 @@
         </div>
         <div class="Form-group">
             <%= f.label :password, "Password" %><br />
-            <%= f.password_field :password, autocomplete: "off", class: "Form-control" %>
+            <%= f.password_field :password, autocomplete: "off", class: "Form-control", id: "password" %>
 
         </div>
         <div class="Form-group">
@@ -19,7 +19,7 @@
             <% end %>
         </div>
         <div>
-            <%= f.submit "Log in", class: "button button--primary" %>
+            <%= f.submit "Log in", class: "button button--primary", id: "LogIn" %>
             <%= link_to "Forgot Password?" , new_user_password_path, title: "Password Lost and Found", class: "u-fr links u-links" %>
         </div>
     <% end %>
