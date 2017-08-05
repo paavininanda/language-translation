@@ -1,4 +1,4 @@
-## Photo Language Translation [![Build Status](https://travis-ci.org/systers/language-translation.svg?branch=develop)](https://travis-ci.org/systers/language-translation) [![Join the chat at https://gitter.im/systers/language-translation](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/systers/language-translation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Photo Language Translation [![Build Status](https://travis-ci.org/systers/language-translation.svg?branch=develop)](https://travis-ci.org/systers/language-translation) [![Join the chat at https://gitter.im/systers/language-translation](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/systers/language-translation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Link to deployed application
 [pc-lang-dev.systers.org](http://pc-lang-dev.systers.org/)
@@ -22,22 +22,24 @@
 
 1. Clone the repository : `git clone https://github.com/systers/language-translation.git`. Check into the directory after cloning.
 
-2. Install PostgreSQL (Version 8.2 and above supported) and npm.
+2. Install PostgreSQL (Version 8.2 and above supported), npm, node and graphviz.
 
 3. Rename config/database.yml.example to config/database.yml : `mv config/database.yml.example config/database.yml`.
 
 4. Update the config/database.yml file with your host name, postgresql username and password.
 
-5. To setup the application run, `rake db:setup`.
+5. To install all the gems, `bundle install`
 
-6. Install bower using npm : `npm install -g bower`.
+6. To setup the application database run, `rake db:setup`.
 
-7. To install bower components, Run `bower install`.
+7. Install bower using npm : `npm install -g bower`.
 
-8. To run the rails application, Run `rails s`.
+8. To install bower components, Run `bower install`.
 
-9. Open `localhost:3000` on your browser to run the application.
+9. To run the rails application, Run `rails s`.
 
-10. To run the testing suite, Run `rake`.
+10. Open `localhost:3000` on your browser to run the application.
 
-11. To view the coverage details, From application root, open coverage directory (`cd coverage`) and run `python -m SimpleHTTPServer` and visit `localhost:8000` on your browser.
+11. To run the testing suite, Run `rake`.
+
+12. To view the coverage details, From application root, open coverage directory (`cd coverage`) and run `python -m SimpleHTTPServer` and visit `localhost:8000` on your browser.
