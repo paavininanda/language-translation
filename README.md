@@ -24,7 +24,8 @@
 
 2. Install PostgreSQL (Version 8.2 and above supported), npm, node and graphviz.
 
-3. Rename config/database.yml.example to config/database.yml : `mv config/database.yml.example config/database.yml`.
+3. Rename config/database.yml.example to config/database.yml : 
+`mv config/database.yml.example config/database.yml`.
 
 4. Update the config/database.yml file with your host name, postgresql username and password.
 
@@ -36,10 +37,14 @@
 
 8. To install bower components, Run `bower install`.
 
-9. To run the rails application, Run `rails s`.
+9. To setup SMTP for forgot_password functionality, signup with SendGrid and get SMTP domain, username and password values.
 
-10. Open `localhost:3000` on your browser to run the application.
+10. Create a config.env file in the root of the application containing the above values. Refer config.env.example file for more info.
 
-11. To run the testing suite, Run `rake`.
+11. To run the rails application, Run `rails s`.
 
-12. To view the coverage details, From application root, open coverage directory (`cd coverage`) and run `python -m SimpleHTTPServer` and visit `localhost:8000` on your browser.
+12. Open `localhost:3000` on your browser to run the application.
+
+13. To run the testing suite, Run `rake`.
+
+14. To view the coverage details, From application root, open coverage directory (`cd coverage`) and run `python -m SimpleHTTPServer` and visit `localhost:8000` on your browser.

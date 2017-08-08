@@ -53,6 +53,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.5.1)
+      public_suffix (~> 2.0, >= 2.0.2)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
@@ -91,6 +93,13 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
+    capybara (2.14.4)
+      addressable
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -121,6 +130,10 @@ GEM
       actionmailer (>= 3.2.6, < 5)
       devise (>= 3.2.0)
     docile (1.1.5)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     ember-cli-assets (0.0.35)
     ember-data-source (2.2.1)
       ember-source (>= 1.8, < 3.0)
@@ -228,6 +241,7 @@ GEM
       activerecord (>= 3.0)
       i18n (>= 0.5.0)
       railties (>= 3.0.0)
+    public_suffix (2.0.5)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -336,6 +350,8 @@ GEM
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
+    xpath (2.1.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -350,12 +366,14 @@ DEPENDENCIES
   cancancan
   capistrano (~> 2.15.5)
   capistrano-ext (~> 1.2.1)
+  capybara
   carrierwave
   coffee-rails (~> 4.1.0)
   default_value_for (~> 3.0.0)
   devise (~> 3.5.0)
   devise-token_authenticatable (~> 0.4.0)
   devise_invitable (~> 1.5.0)
+  dotenv-rails
   ember-rails
   ember-source (~> 1.8.1)
   emblem-rails
@@ -394,4 +412,4 @@ RUBY VERSION
    ruby 2.2.3p173
 
 BUNDLED WITH
-   1.15.1
+   1.15.3

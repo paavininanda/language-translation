@@ -76,7 +76,7 @@
 
 6. [x] Delete my own account under "Edit Profile".
 
-7. [ ] Mailer Client (Sideqik/Redis etc.) not setup to work to make "Forgot Password" work. (Unable to find implementation.)
+7. [x] Mailer Client (Sideqik/Redis etc.) not setup to work to make "Forgot Password" work. (Unable to find implementation.)
 
 ## Using CanCanCan
 

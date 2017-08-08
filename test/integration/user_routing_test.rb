@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserFlowsTest < ActionDispatch::IntegrationTest
+class UserRoutingTest < ActionDispatch::IntegrationTest
   fixtures :all
 
   test "the truth" do

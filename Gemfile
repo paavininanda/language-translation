@@ -57,7 +57,7 @@ gem 'activeadmin', '~> 1.0.0.pre1'
 
 gem 'cancancan'
 gem 'rolify'
-
+gem 'capybara'
 gem 'responders'
 # Flexible authentication solution for Rails with Warden
 gem 'devise', '~> 3.5.0'
@@ -76,6 +76,8 @@ gem 'kaminari'
 gem 'simple-navigation'
 # A lightweight Sass tool set
 gem 'bourbon'
+
+gem 'dotenv-rails', :groups => [:development, :test]
 
 group :test do
   gem 'shoulda'
