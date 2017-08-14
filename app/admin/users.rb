@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :email, :username, :first_name, :last_name, :location, :contact, :gender, :lang, :login_approval_at
+  permit_params :email, :username, :first_name, :last_name, :organization_id, :password, :password_confirmation, :location, :contact, :gender, :lang, :login_approval_at
 
   filter :roles
   filter :email
@@ -34,14 +34,24 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs "New User" do
+      f.input :organization
       f.input :email
-      f.input :username
+      if not f.object.new_record?
+        if not f.object.has_role? :volunteer, Site.with_role(:volunteer, f.object)[0]
+          f.input :username
+        end
+      else
+        f.input :username
+        f.input :password
+        f.input :password_confirmation
+      end
       f.input :first_name
       f.input :last_name
       f.input :location
       f.input :contact
       f.input :gender
       f.input :lang
+      f.input :login_approval_at
     end
     f.actions
   end
