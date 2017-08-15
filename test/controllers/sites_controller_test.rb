@@ -265,30 +265,32 @@ class SitesControllerTest < ActionController::TestCase
     site = create(:site, id: 10, name: "Khatmandu", country_id: @country.id)
 
     @volunteer1 = create(:user, id: 100, organization_id: @org.id)
-    @volunteer1.add_role :volunteer
+    @volunteer1.add_role :volunteer, site
     @volunteer2 = create(:user, id: 101, organization_id: @org.id)
-    @volunteer2.add_role :volunteer
+    @volunteer2.add_role :volunteer, site
 
     @contributor1 = create(:user, id: 200, organization_id: @org.id)
-    @contributor1.add_role :contributor
+    @contributor1.add_role :contributor, site
     @contributor2 = create(:user, id: 201, organization_id: @org.id)
-    @contributor2.add_role :contributor
+    @contributor2.add_role :contributor, site
 
     assert_difference('Site.count',-1) do
-      delete :destroy, id: site.id
+      delete :destroy, {id: site.id}
       assert_response :redirect
     end
     
     assert_equal "Site has been deleted.", flash[:notice]
     assert_nil Site.find_by_id(site.id)
 
-    # NOT IMPLEMENTED : delete all volunteers and contributors when site is deleted
-    # assert_nil @volunteer1.id
-    # assert_nil @volunteer2.id
-    # assert_nil @contributor1.id
-    # assert_nil @contributor2.id
+    # CHECK IF SITE IS DELETED
+    assert_equal Site.find_by_id(10), nil
+    # CHECK IF VOLUNTEERS ARE DELETED
+    assert_equal User.find_by_id(100), nil
+    assert_equal User.find_by_id(101), nil
+    # CHECK IF CONTRIBUTORS ARE DELETED
+    assert_equal User.find_by_id(200), nil
+    assert_equal User.find_by_id(201), nil
 
     assert_not_nil Country.find_by_id(@country.id)
   end
-
 end
