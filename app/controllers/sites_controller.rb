@@ -70,7 +70,15 @@ class SitesController < ApplicationController
   end
 
   def destroy
-    @site.destroy
+    @site.delete
+
+    if @volunteers_of_current_site.present?
+      User.where(id: @volunteers_of_current_site.map(&:id)).delete_all
+    end
+
+    if @contributors_of_current_site.present?
+      User.where(id: @contributors_of_current_site.map(&:id)).delete_all
+    end
 
     flash[:notice] = "Site has been deleted."
     redirect_to sites_path
@@ -134,10 +142,13 @@ class SitesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_site
     @site = Site.find(params[:id])
+    @volunteers_of_current_site = User.with_role(:volunteer, @site)
+    @contributors_of_current_site = User.with_role(:contributor, @site)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def site_params
     params.require(:site).permit(:name, :country_id)
   end
+
 end
