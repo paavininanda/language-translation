@@ -172,4 +172,250 @@ class UsersControllerTest < ActionController::TestCase
     user1 = create(:user, email: "test_user_1@gmail.com", username: "testuser1", first_name: "Test", last_name: "User1", organization_id: @org.id, location: "test_location_1", login_approval_at: 2.weeks.ago, avatar: nil)
     assert_equal nil, user1.avatar_url(user1)
   end
+
+  test "should approve user if current user superadmin or admin" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    user0 = create(:user)
+    post :approve_user, { :user_id => user0.id }
+    assert_equal "User has been approved.", flash[:notice]
+
+    sign_out @superadmin
+
+    @admin = create(:user, organization_id: organization1.id)
+    @admin.add_role :admin
+    sign_in @admin
+
+    user1 = create(:user)
+    post :approve_user, { :username => user1.username }
+    assert_equal "User has been approved.", flash[:notice]
+  end
+
+  test "should not approve user if current user volunteer or contributor" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @volunteer = create(:user, organization_id: organization1.id)
+    @volunteer.add_role :volunteer
+    sign_in @volunteer
+
+    user0 = create(:user)
+    post :approve_user, { :user_id => user0.id }
+    assert_equal "User does not have sufficient permission to perform this action.", flash[:error]
+
+    sign_out @volunteer
+
+    @contributor = create(:user, organization_id: organization1.id)
+    @contributor.add_role :contributor
+    sign_in @contributor
+
+    user1 = create(:user)
+    post :approve_user, { :username => user1.username }
+    assert_equal "User does not have sufficient permission to perform this action.", flash[:error]
+  end
+
+  test "should not approve user for non existent user" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    user0 = create(:user)
+    post :approve_user, { :user_id => nil }
+    assert_equal "User not available.", flash[:error]
+
+    sign_out @superadmin
+
+    @admin = create(:user, organization_id: organization1.id)
+    @admin.add_role :admin
+    sign_in @admin
+
+    user1 = create(:user)
+    post :approve_user, { :username => user1.username }
+    assert_equal "User not available.", flash[:error]
+  end
+
+  test "should disapprove user if current user superadmin or admin" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    user0 = create(:user)
+    post :disapprove_user, { :user_id => user0.id }
+    assert_equal "User has been disapproved.", flash[:notice]
+
+    sign_out @superadmin
+
+    @admin = create(:user, organization_id: organization1.id)
+    @admin.add_role :admin
+    sign_in @admin
+
+    user1 = create(:user)
+    post :disapprove_user, { :username => user1.username }
+    assert_equal "User has been disapproved.", flash[:notice]
+  end
+
+  test "should not disapprove user if current user volunteer or contributor" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @volunteer = create(:user, organization_id: organization1.id)
+    @volunteer.add_role :volunteer
+    sign_in @volunteer
+
+    user0 = create(:user)
+    post :disapprove_user, { :user_id => user0.id }
+    assert_equal "User does not have sufficient permission to perform this action.", flash[:error]
+
+    sign_out @volunteer
+
+    @contributor = create(:user, organization_id: organization1.id)
+    @contributor.add_role :contributor
+    sign_in @contributor
+
+    user1 = create(:user)
+    post :disapprove_user, { :username => user1.username }
+    assert_equal "User does not have sufficient permission to perform this action.", flash[:error]
+  end
+
+  test "should not disapprove user for non existent user" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    user0 = create(:user)
+    post :disapprove_user, { :user_id => nil }
+    assert_equal "User not available.", flash[:error]
+
+    sign_out @superadmin
+
+    @admin = create(:user, organization_id: organization1.id)
+    @admin.add_role :admin
+    sign_in @admin
+
+    user1 = create(:user)
+    post :disapprove_user, { :username => user1.username }
+    assert_equal "User not available.", flash[:error]
+  end
+
+  test "should grant admin to user if current user superadmin" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    user0 = create(:user)
+    post :grant_admin, { :user_id => user0.id }
+    assert_equal "User granted admin permission.", flash[:notice]
+
+    user1 = create(:user)
+    post :grant_admin, { :username => user1.username }
+    assert_equal "User granted admin permission.", flash[:notice]
+  end
+
+  test "should not grant admin to user if current user admin or volunteer or contributor" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @admin = create(:user, organization_id: organization1.id)
+    @admin.add_role :admin
+    sign_in @admin
+
+    user1 = create(:user)
+    post :grant_admin, { :username => user1.username }
+    assert_equal "User does not have sufficient permission to perform this action.", flash[:error]
+
+    @volunteer = create(:user, organization_id: organization1.id)
+    @volunteer.add_role :volunteer
+    sign_in @volunteer
+
+    user0 = create(:user)
+    post :grant_admin, { :user_id => user0.id }
+    assert_equal "User does not have sufficient permission to perform this action.", flash[:error]
+
+    sign_out @volunteer
+
+    @contributor = create(:user, organization_id: organization1.id)
+    @contributor.add_role :contributor
+    sign_in @contributor
+
+    user1 = create(:user)
+    post :grant_admin, { :username => user1.username }
+    assert_equal "User does not have sufficient permission to perform this action.", flash[:error]
+  end
+
+  test "should not grant admin to user for non existent user" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    user0 = create(:user)
+    post :disapprove_user, { :user_id => nil }
+    assert_equal "User not available.", flash[:error]
+
+    sign_out @superadmin
+
+    @admin = create(:user, organization_id: organization1.id)
+    @admin.add_role :admin
+    sign_in @admin
+
+    user1 = create(:user)
+    post :disapprove_user, { :username => user1.username }
+    assert_equal "User not available.", flash[:error]
+  end
+
+  test "should revoke admin to user if current user superadmin" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    user0 = create(:user)
+    post :revoke_admin, { :user_id => user0.id }
+    assert_equal "Admin permissions revoked for user.", flash[:notice]
+
+    user1 = create(:user)
+    post :revoke_admin, { :username => user1.username }
+    assert_equal "Admin permissions revoked for user.", flash[:notice]
+  end
+
+  test "should not revoke admin to user if current user admin or volunteer or contributor" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @admin = create(:user, organization_id: organization1.id)
+    @admin.add_role :admin
+    sign_in @admin
+
+    user1 = create(:user)
+    post :revoke_admin, { :username => user1.username }
+    assert_equal "User does not have sufficient permission to perform this action.", flash[:error]
+
+    @volunteer = create(:user, organization_id: organization1.id)
+    @volunteer.add_role :volunteer
+    sign_in @volunteer
+
+    user0 = create(:user)
+    post :revoke_admin, { :user_id => user0.id }
+    assert_equal "User does not have sufficient permission to perform this action.", flash[:error]
+
+    sign_out @volunteer
+
+    @contributor = create(:user, organization_id: organization1.id)
+    @contributor.add_role :contributor
+    sign_in @contributor
+
+    user1 = create(:user)
+    post :revoke_admin, { :username => user1.username }
+    assert_equal "User does not have sufficient permission to perform this action.", flash[:error]
+  end
+
+  test "should not revoke admin to user for non existent user" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    user0 = create(:user)
+    post :revoke_admin, { :user_id => nil }
+    assert_equal "User not available.", flash[:error]
+  end
 end
