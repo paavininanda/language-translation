@@ -1,7 +1,145 @@
-<%= react_component 'SitesShowBox',
-                    {
-                            site: @site,
-                            country: @site.country,
-                            volunteers: @volunteers,
-                            contributors: @contributors
-                   }%>
+<header class="app-bar promote-layer">
+    <div class="app-bar-container">
+        <button class="menu"><span class="icon-menu"></span></button>
+
+        <div class="Heading">
+            <%= link_to sites_path, class: "Back" do %>
+                <span class="icon-chevron-left-thin"></span><span class="Back-text">Back</span>
+            <% end %>
+            <h1 class="title"><span>Site : <%= @site.name %></span></h1>
+        </div>
+
+    </div>
+</header>
+
+<main>
+    <br><br>
+    <h3>Add volunteer/contributor</h3>
+    <%= form_tag(controller: "sites", action: "add_role", method: "post") do %>
+        <%= label_tag(:username, "Enter username: ") %>
+        <%= text_field_tag :username %>
+        <%= radio_button_tag(:act, "volunteer") %>
+        <%= label_tag(:role_volunteer, "Volunteer") %>
+        <%= radio_button_tag(:act, "contributor") %>
+        <%= label_tag(:role_contributor, "Contributor") %>
+        <br>
+        <%= hidden_field_tag(:site_id, @site.id) %>
+        <%= submit_tag("Add Role") %>
+    <% end %>
+    <hr>
+    <h3>Remove volunteer/contributor</h3>
+    <%= form_tag(controller: "sites", action: "remove_role", method: "post") do %>
+        <%= label_tag(:username, "Enter username: ") %>
+        <%= text_field_tag :username %>
+        <%= radio_button_tag(:act, "volunteer") %>
+        <%= label_tag(:role_volunteer, "Volunteer") %>
+        <%= radio_button_tag(:act, "contributor") %>
+        <%= label_tag(:role_contributor, "Contributor") %>
+        <br>
+        <%= hidden_field_tag(:site_id, @site.id) %>
+        <%= submit_tag("Remove Role") %>
+    <% end %>
+    <hr>
+    <h3>Volunteers</h3>
+
+    <% if @volunteers.present? %>
+    <div class="CardListTable">
+        <ul class="CardListTable-body">
+            <% @volunteers.each do |volunteer| %>
+                <li>
+                    <ul class="CardListTableRow">
+                        <li class="CardListTable-cal u-w180px" data-th="Username">
+                            <div class="CardListTable-content">
+                            <a class="button--icontext button--ricontext" href="<%=  site_path(@site) %>" <%= link_to volunteer.username %></a>
+                            </div>
+                        </li>
+
+                        <li class="CardListTable-cal u-w180px" data-th="Name">
+                            <div class="CardListTable-content">
+                                <%= volunteer.first_name %>
+                            </div>
+                        </li>
+
+                        <li class="CardListTable-cal u-w180px" data-th="Email">
+                            <div class="CardListTable-content">
+                                <%= volunteer.email %>
+                            </div>
+                        </li>
+
+                        <% if can? :manage, volunteer %>
+                            <li class="CardListTable-cal u-w60px" data-th="Action">
+                                <div class="CardListTable-content">
+                                    <div class="dropdown">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="button--icon" href="#"><i class="icon-action"></i></a>
+                                        <ul class="dropdown-menu u-rightPopup">
+                                            <% if can? :destroy, volunteer %>
+                                                <li>
+                                                    <%= link_to 'Delete Volunteer', user_path(volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
+                                                </li>
+                                            <% end %>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        <% end %>
+                    </ul>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+    <% else %>
+        <p>No volunteers to display</p>
+    <% end %>
+
+    <br><br>
+    <hr>
+    <h3>Contributors <%= link_to 'Add Contributor', nil, class: "Back" %></h3>
+    <% if @contributors.present? %>
+    <div class="CardListTable">
+        <ul class="CardListTable-body">
+            <% @contributors.each do |contributor| %>
+                <li>
+                    <ul class="CardListTableRow">
+                        <li class="CardListTable-cal u-w180px" data-th="Username">
+                            <div class="CardListTable-content">
+                            <a class="button--icontext button--ricontext" href="<%=  site_path(@site) %>" <%= link_to contributor.username %></a>
+                            </div>
+                        </li>
+
+                        <li class="CardListTable-cal u-w180px" data-th="Name">
+                            <div class="CardListTable-content">
+                                <%= contributor.first_name %>
+                            </div>
+                        </li>
+
+                        <li class="CardListTable-cal u-w180px" data-th="Email">
+                            <div class="CardListTable-content">
+                                <%= contributor.email %>
+                            </div>
+                        </li>
+
+                        <% if can? :manage, contributor %>
+                            <li class="CardListTable-cal u-w60px" data-th="Action">
+                                <div class="CardListTable-content">
+                                    <div class="dropdown">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="button--icon" href="#"><i class="icon-action"></i></a>
+                                        <ul class="dropdown-menu u-rightPopup">
+                                            <% if can? :destroy, contributor %>
+                                                <li>
+                                                    <%= link_to 'Delete Volunteer', user_path(contributor), method: :delete, data: {confirm: 'Are you sure?'} %>
+                                                </li>
+                                            <% end %>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        <% end %>
+                    </ul>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+    <% else %>
+        <p>No contributors to display</p>
+    <% end %>
+</main>
