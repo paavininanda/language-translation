@@ -37,16 +37,20 @@
                     <dd>
                         <%= link_to @country.user.username, user_path(@country.user) %>
                     </dd>
+                    <dt>Contact</dt>
+                    <dd>
+                        <%= mail_to @country.user.email %>
+                    </dd>
                 <% end %>
             </dl>
 
-            <h3 class="title u-push2xTop">Sites</h3>
+            <h3 class="title u-push2xTop">Sites (<%= @country.sites.count %>)</h3>
 
             <dl class="Info">
                 <% @country.sites.reverse.each do |site| %>
                     <dt>#<%= site.id %></dt>
                     <dd><a class="button--icontext button--ricontext" href="<%=  site_path(site) %>" <%= link_to site.name %></a>
-</dd>
+                    </dd>
                 <% end %>
             </dl>
 
