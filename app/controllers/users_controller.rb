@@ -51,75 +51,129 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  #####CUSTOM METHODS#####
-
-  #Called from Users Index: app/assets/javascripts/components/users/index.js.jsx.coffee
-  # It receives the user_id and approves/disapproves the user, then returns the Users list.
   def approve_user
-    @user = User.find(params[:user_id])
-    @user.login_approval_at = Time.now
-    respond_to do |format|
-      if @user.save
-        flash[:notice] = "User has been approved."
-        format.json { render json: User.accessible_by(current_ability), status: :ok }
-      else
-        flash[:error] = "Sorry, failed to approve user due to errors."
-        format.json { render json: @user.errors, status: :unprocessable_entity}
+    if current_user.has_role? :superadmin or current_user.has_role? :admin
+      if params[:user_id].present?
+        @user = User.find(params[:user_id])
+      elsif params[:username].present?
+        @user = User.find_by_username(params[:username])
       end
+      
+      if @user.present?
+        @user.login_approval_at = Time.now
+        respond_to do |format|
+          if @user.save
+            flash[:notice] = "User has been approved."
+            format.json { render json: User.accessible_by(current_ability), status: :ok }
+            format.html { redirect_to users_path }
+          else
+            flash[:error] = "Sorry, failed to approve user due to errors."
+            format.json { render json: @user.errors, status: :unprocessable_entity}
+            format.html { redirect_to users_path }
+          end
+        end
+      else
+        flash[:error] = "User not available."
+        redirect_to users_path
+      end
+    else
+      flash[:error] = "User does not have sufficient permission to perform this action."
+      redirect_to users_path
     end
   end
 
   def disapprove_user
-    @user = User.find(params[:user_id])
-    @user.login_approval_at = nil
-    respond_to do |format|
-      if @user.save
-        flash[:notice] = "User has been disapproved."
-        format.json { render json: User.accessible_by(current_ability), status: :ok }
-      else
-        flash[:error] = "Sorry, failed to disapprove user due to errors."
-        format.json { render json: @user.errors, status: :unprocessable_entity}
+    if current_user.has_role? :superadmin or current_user.has_role? :admin
+      if params[:user_id].present?
+        @user = User.find(params[:user_id])
+      elsif params[:username].present?
+        @user = User.find_by_username(params[:username])
       end
+
+      if @user.present?
+        @user.login_approval_at = nil
+        respond_to do |format|
+          if @user.save
+            flash[:notice] = "User has been disapproved."
+            format.json { render json: User.accessible_by(current_ability), status: :ok }
+            format.html { redirect_to users_path }
+          else
+            flash[:error] = "Sorry, failed to disapprove user due to errors."
+            format.json { render json: @user.errors, status: :unprocessable_entity}
+            format.html { redirect_to users_path }
+          end
+        end
+      else
+        flash[:error] = "User not available."
+        redirect_to users_path
+      end
+    else
+      flash[:error] = "User does not have sufficient permission to perform this action."
+      redirect_to users_path
     end
   end
 
-  #Called from Users Show: app/assets/javascripts/components/users/show.js.jsx.coffee
-  # It receives the user_id and grants/revokes admin rights, then returns the user's roles.
   def grant_admin
-    @user = User.find(params[:user_id])
-    @user.add_role :admin
-    respond_to do |format|
-      if @user.save
-        flash[:notice] = "User granted admin permission."
-        format.json { render json: @user.roles.map{|a| a.name}, status: :ok }
-      else
-        flash[:error] = "Sorry, failed to grant admin permission due to errors."
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    if current_user.has_role? :superadmin
+      if params[:user_id].present?
+        @user = User.find(params[:user_id])
+      elsif params[:username].present?
+        @user = User.find_by_username(params[:username])
       end
+
+      if @user.present?
+        @user.add_role :admin
+        respond_to do |format|
+          if @user.save
+            flash[:notice] = "User granted admin permission."
+            format.json { render json: @user.roles.map{|a| a.name}, status: :ok }
+            format.html { redirect_to users_path }
+          else
+            flash[:error] = "Sorry, failed to grant admin permission due to errors."
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+            format.html { redirect_to users_path }
+          end
+        end
+      else
+        flash[:error] = "User not available."
+        redirect_to users_path
+      end
+    else
+      flash[:error] = "User does not have sufficient permission to perform this action."
+      redirect_to users_path
     end
   end
 
   def revoke_admin
-    @user = User.find(params[:user_id])
-    @user.remove_role :admin
-    respond_to do |format|
-      if @user.save
-        format.json { render json: @user.roles.map{|a| a.name}, status: :ok }
-      else
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    if current_user.has_role? :superadmin
+      if params[:user_id].present?
+        @user = User.find(params[:user_id])
+      elsif params[:username].present?
+        @user = User.find_by_username(params[:username])
       end
+
+      if @user.present?
+        @user.remove_role :admin
+        respond_to do |format|
+          if @user.save
+            flash[:notice] = "Admin permissions revoked for user."
+            format.json { render json: @user.roles.map{|a| a.name}, status: :ok }
+            format.html { redirect_to users_path }
+          else
+            flash[:error] = "Sorry, failed to revoke admin permission due to errors."
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+            format.html { redirect_to users_path }
+          end
+        end
+      else
+        flash[:error] = "User not available."
+        redirect_to users_path
+      end
+    else
+      flash[:error] = "User does not have sufficient permission to perform this action."
+      redirect_to users_path
     end
   end
-
-  # def avatar_url(user)
-  #   if user.avatar.url.present?
-  #     user.avatar.url
-  #   else
-  #     default_url = "#{root_url}images/guest.png"
-  #     gravatar_id = Digest::MD5::hexdigest(user.email).downcase
-  #     "http://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=#{CGI.escape(default_url)}"
-  #   end
-  # end
 
   private
   # Use callbacks to share common setup or constraints between actions.
