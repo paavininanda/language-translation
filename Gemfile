@@ -73,6 +73,10 @@ gem 'active_model_serializers'
 # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Rails
 gem 'kaminari'
 
+group :development do
+  gem 'brakeman', :require => false
+end
+
 gem 'simple-navigation'
 # A lightweight Sass tool set
 gem 'bourbon'
