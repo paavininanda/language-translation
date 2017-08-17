@@ -4,7 +4,7 @@
 
 1. [x] Upload Picture of Object
 
-2. [x] Add content (text-about the picture in English and category- like rivers,food,adjective,pronoun,etc. ) and language name to picture in English.
+2. [x] Add content (text-about the picture in English and category- like rivers,food,adjective,pronoun,etc.) and language name to picture in English.
 
 3. [X] Add content to picture with phonetic text ( It is pronunciation of word of local language – Chuukese here - expressed in english text. Example, building: the phonetic text might be "Bill-Ding". )
 
@@ -40,7 +40,7 @@
 
 19. [x] Empty string will not be taken as Site name. Hence, if you just click "Create Site" without entering anything in the name field, no site will be created  and the form will show an error message.
 
-20. [x] All sites under a country(installation) can be seen under "Posts" tab. Click "Show" for a particular country(installation) to see all contact information of country(installation) and number of sites in it.
+20. [x] All sites under a country(installation) can be seen under "Countries" tab. Click "Show" for a particular country(installation) to see all contact information of country(installation) and number of sites in it.
 
 21. [x] CAREFUL! : If a particular site is deleted, all the volunteer names under that site are automatically deleted.
 
