@@ -22,8 +22,12 @@
         login_approval_at: Time.now, password: 'admin2', password_confirmation: 'admin2', email: 'ad@min.two'},
         { organization: organizations.fourth, username: 'superadmin', first_name: 'Super', last_name: 'Admin',
         login_approval_at: Time.now, password: 'superadmin', password_confirmation: 'superadmin', email: 'super@ad.min'},
-        { organization: organizations.third, username: 'volunteer', first_name: 'Vol', last_name: 'Unteer',
-        login_approval_at: Time.now, password: 'volunteer', password_confirmation: 'volunteer', email: 'vol@un.teer'},
+        { organization: organizations.third, username: 'volunteer1', first_name: 'Vol', last_name: 'Unteer',
+        login_approval_at: Time.now, password: 'volunteer1', password_confirmation: 'volunteer1', email: 'vol1@un.teer'},
+        { organization: organizations.third, username: 'volunteer2', first_name: 'Vol', last_name: 'Unteer',
+        login_approval_at: Time.now, password: 'volunteer2', password_confirmation: 'volunteer2', email: 'vol2@un.teer'},
+        { organization: organizations.third, username: 'volunteer3', first_name: 'Vol', last_name: 'Unteer',
+        login_approval_at: Time.now, password: 'volunteer3', password_confirmation: 'volunteer3', email: 'vol3@un.teer'},
         { organization: organizations.first, username: 'contrib', first_name: 'Con', last_name: 'Tributor',
         login_approval_at: Time.now, password: 'contributor', password_confirmation: 'contributor', email: 'con@tri.butor'}
     ])
@@ -70,5 +74,7 @@
     User.find_by_username('admin1').add_role :admin
     User.find_by_username('admin2').add_role :admin
     User.find_by_username('superadmin').add_role :superadmin
-    User.find_by_username('volunteer').add_role :volunteer, sites.fifth
-    User.find_by_username('contrib').add_role :contributor, sites.first
+    User.find_by_username('volunteer1').add_role :volunteer, sites.fifth
+    User.find_by_username('volunteer2').add_role :volunteer, sites.fifth
+    User.find_by_username('volunteer3').add_role :volunteer, sites.third
+    User.find_by_username('contrib').add_role :contributor, sites.fifth
