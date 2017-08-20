@@ -1,7 +1,7 @@
 class SitesController < ApplicationController
   before_action :set_site, only: [:edit, :show, :destroy, :update]
   load_and_authorize_resource
-  respond_to :html
+  respond_to :html, :json
 
   def index
     current_user.organization.countries.each do |a|
@@ -84,57 +84,104 @@ class SitesController < ApplicationController
     redirect_to sites_path
   end
 
-
-  #####CUSTOM METHODS#####
-
-  #Called from the Sites Show: app/assets/javascripts/components/sites/show.js.jsx.coffee
-  # It receives the :username, :site_id, and :act(action) and adds/removes the user as
-  # a volunteer/contributor of the given site. It returns the volunteer/contributor list.
   def add_role
     @user = User.where(username: params[:username]).first
     @site = Site.find(params[:site_id])
     action = params[:act]
 
-    if(action == 'volunteer')
-      respond_to do |format|
-        if @user.add_role :volunteer, @site
-          format.json { render json: (User.with_role :volunteer, @site), status: :ok}
-        else
-          format.json { render json: @user.errors, status: :unprocessable_entity }
+    if @user.present? and action.present?
+      if(action == 'volunteer')
+        respond_to do |format|
+          if @user.add_role :volunteer, @site
+            format.json { render json: (User.with_role :volunteer, @site), status: :ok }
+            flash[:notice] = "Volunteer successfully added."
+            format.html { redirect_to @site }
+          else
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+            flash[:error] = "Unable to add volunteer."
+            format.html { redirect_to @site }
+          end
+        end
+      elsif(action == 'contributor')
+        respond_to do |format|
+          if @user.add_role :contributor, @site
+            format.json { render json: (User.with_role :contributor, @site), status: :ok }
+            flash[:notice] = "Contributor successfully added."
+            format.html { redirect_to @site }
+          else
+            format.json { render json: @user.errors, status: :unprocessable_entity}
+            flash[:error] = "Unable to add contributor."
+            format.html { redirect_to @site }
+          end
         end
       end
-    elsif(action == 'contributor')
-      respond_to do |format|
-        if @user.add_role :contributor, @site
-          format.json { render json: (User.with_role :contributor, @site), status: :ok}
-        else
-          format.json { render json: @user.errors, status: :unprocessable_entity}
-        end
+    else
+      if not @user.present?
+        flash[:error] = "User doesn't exist."
       end
+      if not action.present?
+        flash[:error] = "Action not specified."
+      end
+      redirect_to @site
     end
   end
 
   def remove_role
-    @user = User.find(params[:user_id])
+    if params[:user_id].present?
+      @user = User.find(params[:user_id])
+    elsif params[:username].present?
+      @user = User.find_by_username(params[:username])
+    end
+
     @site = Site.find(params[:site_id])
     action = params[:act]
 
-    if(action == 'volunteer')
-      respond_to do |format|
-        if @user.remove_role :volunteer, @site
-          format.json { render json: (User.with_role :volunteer, @site), status: :ok}
-        else
-          format.json { render json: @user.errors, status: :unprocessable_entity }
+    if @user.present? and action.present?
+      if(action == 'volunteer')
+        respond_to do |format|
+          if @user.has_role? :volunteer, @site
+            if @user.remove_role :volunteer, @site
+              format.json { render json: (User.with_role :volunteer, @site), status: :ok }
+              flash[:notice] = "Volunteer successfully deleted."
+              format.html { redirect_to @site }
+            else
+              format.json { render json: @user.errors, status: :unprocessable_entity }
+              flash[:error] = "Unable to delete volunteer."
+              format.html { redirect_to @site }
+            end
+          else
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+            flash[:error] = "User not a volunteer for this site."
+            format.html { redirect_to @site }
+          end
+        end
+      elsif(action == 'contributor')
+        respond_to do |format|
+          if @user.has_role? :contributor, @site
+            if @user.remove_role :contributor, @site
+              format.json { render json: (User.with_role :contributor, @site), status: :ok }
+              flash[:notice] = "Contributor successfully deleted."
+              format.html { redirect_to @site }
+            else
+              format.json { render json: @user.errors, status: :unprocessable_entity}
+              flash[:error] = "Unable to delete contributor."
+              format.html { redirect_to @site }
+            end
+          else
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+            flash[:error] = "User not a contributor for this site."
+            format.html { redirect_to @site }
+          end
         end
       end
-    elsif(action == 'contributor')
-      respond_to do |format|
-        if @user.remove_role :contributor, @site
-          format.json { render json: (User.with_role :contributor, @site), status: :ok}
-        else
-          format.json { render json: @user.errors, status: :unprocessable_entity}
-        end
+    else
+      if not @user.present?
+        flash[:error] = "User doesn't exist."
       end
+      if not action.present?
+        flash[:error] = "Action not specified."
+      end
+      redirect_to @site
     end
   end
 

@@ -42,12 +42,14 @@ Rails.application.routes.draw do
   resources :countries do
     resources :sites
   end
- 
- 
-  resources :sites
-  # Routes for custom methods (for use with ReactJS)
-  post "sites/add_role", to: "sites#add_role"
-  post "sites/remove_role", to: "sites#remove_role"
+
+
+  resources :sites do
+    collection do
+      post :add_role
+      post :remove_role
+    end
+  end
 
   resources :languages do
     resources :articles

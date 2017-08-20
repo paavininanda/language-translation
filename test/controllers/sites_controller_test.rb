@@ -261,6 +261,144 @@ class SitesControllerTest < ActionController::TestCase
     assert_template(:edit)
   end
 
+  test "should add role as volunteer" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    site = create(:site, id: 1, name: "Khatmandu", country_id: @country.id)
+
+    @volunteer1 = create(:user, organization_id: @org.id)
+    post :add_role, { username: @volunteer1.username, site_id: site.id, act: :volunteer }
+    assert_equal "Volunteer successfully added.", flash[:notice]
+
+    @volunteer2 = create(:user, organization_id: @org.id)
+    post :add_role, { username: @volunteer2.username, site_id: site.id, act: :volunteer }
+    assert_equal "Volunteer successfully added.", flash[:notice]
+  end
+
+  test "should remove role as volunteer" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    site = create(:site, id: 1, name: "Khatmandu", country_id: @country.id)
+
+    @volunteer1 = create(:user, organization_id: @org.id)
+    post :add_role, { username: @volunteer1.username, site_id: site.id, act: :volunteer }
+    assert_equal "Volunteer successfully added.", flash[:notice]
+
+    post :remove_role, { username: @volunteer1.username, site_id: site.id, act: :volunteer }
+    assert_equal "Volunteer successfully deleted.", flash[:notice]
+
+    @volunteer2 = create(:user, organization_id: @org.id)
+    post :add_role, { username: @volunteer2.username, site_id: site.id, act: :volunteer }
+    assert_equal "Volunteer successfully added.", flash[:notice]
+
+    post :remove_role, { user_id: @volunteer2.id, site_id: site.id, act: :volunteer }
+    assert_equal "Volunteer successfully deleted.", flash[:notice]
+  end
+
+  test "should add role as contributor" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    site = create(:site, id: 1, name: "Khatmandu", country_id: @country.id)
+
+    @contributor1 = create(:user, organization_id: @org.id)
+    post :add_role, { username: @contributor1.username, site_id: site.id, act: :contributor }
+    assert_equal "Contributor successfully added.", flash[:notice]
+
+    @contributor2 = create(:user, organization_id: @org.id)
+    post :add_role, { username: @contributor2.username, site_id: site.id, act: :contributor }
+    assert_equal "Contributor successfully added.", flash[:notice]
+  end
+
+  test "should remove role as contributor" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    site = create(:site, id: 1, name: "Khatmandu", country_id: @country.id)
+
+    @contributor1 = create(:user, organization_id: @org.id)
+    post :add_role, { username: @contributor1.username, site_id: site.id, act: :contributor }
+    assert_equal "Contributor successfully added.", flash[:notice]
+
+    post :remove_role, { username: @contributor1.username, site_id: site.id, act: :contributor }
+    assert_equal "Contributor successfully deleted.", flash[:notice]
+
+    @contributor2 = create(:user, organization_id: @org.id)
+    post :add_role, { username: @contributor2.username, site_id: site.id, act: :contributor }
+    assert_equal "Contributor successfully added.", flash[:notice]
+
+    post :remove_role, { user_id: @contributor2.id, site_id: site.id, act: :contributor }
+    assert_equal "Contributor successfully deleted.", flash[:notice]
+  end
+
+  test "should not add volunteer/contributor for non existent user" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    site = create(:site, id: 1, name: "Khatmandu", country_id: @country.id)
+
+    post :add_role, { username: "dummy", site_id: site.id, act: :volunteer }
+    assert_equal "User doesn't exist.", flash[:error]
+  end
+
+  test "should not add volunteer/contributor without volunteer action" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    site = create(:site, id: 1, name: "Khatmandu", country_id: @country.id)
+
+    post :add_role, { username: "dummy", site_id: site.id, act: nil }
+    assert_equal "Action not specified.", flash[:error]
+  end
+
+  test "should throw error when removing a non existing volunteer for a site" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    site = create(:site, id: 1, name: "Khatmandu", country_id: @country.id)
+
+    @volunteer1 = create(:user, organization_id: @org.id)
+    post :remove_role, { username: @volunteer1.username, site_id: site.id, act: :volunteer }
+    assert_equal "User not a volunteer for this site.", flash[:error]
+
+    @volunteer2 = create(:user, organization_id: @org.id)
+    post :remove_role, { user_id: @volunteer2.id, site_id: site.id, act: :volunteer }
+    assert_equal "User not a volunteer for this site.", flash[:error]
+  end
+
+  test "should throw error when removing a non existing contributor for a site" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    site = create(:site, id: 1, name: "Khatmandu", country_id: @country.id)
+
+    @contributor1 = create(:user, organization_id: @org.id)
+    post :remove_role, { username: @contributor1.username, site_id: site.id, act: :contributor }
+    assert_equal "User not a contributor for this site.", flash[:error]
+
+    @contributor2 = create(:user, organization_id: @org.id)
+    post :remove_role, { user_id: @contributor2.id, site_id: site.id, act: :contributor }
+    assert_equal "User not a contributor for this site.", flash[:error]
+  end
+
   test "should delete site along with all volunteers and contributors under it" do
     site = create(:site, id: 10, name: "Khatmandu", country_id: @country.id)
 
