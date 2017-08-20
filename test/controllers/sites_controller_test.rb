@@ -341,7 +341,7 @@ class SitesControllerTest < ActionController::TestCase
     assert_equal "Contributor successfully deleted.", flash[:notice]
   end
 
-  test "should not add volunteer/contributor for non existent user" do
+  test "should not add volunteer for non existent user" do
     organization1 = create(:organization, name: "test_organization_1")
     @superadmin = create(:user, organization_id: organization1.id)
     @superadmin.add_role :superadmin
@@ -353,7 +353,19 @@ class SitesControllerTest < ActionController::TestCase
     assert_equal "User doesn't exist.", flash[:error]
   end
 
-  test "should not add volunteer/contributor without volunteer action" do
+  test "should not add contributor for non existent user" do
+    organization1 = create(:organization, name: "test_organization_1")
+    @superadmin = create(:user, organization_id: organization1.id)
+    @superadmin.add_role :superadmin
+    sign_in @superadmin
+
+    site = create(:site, id: 1, name: "Khatmandu", country_id: @country.id)
+
+    post :add_role, { username: "dummy", site_id: site.id, act: :contributor }
+    assert_equal "User doesn't exist.", flash[:error]
+  end
+
+  test "should not add volunteer/contributor without action field" do
     organization1 = create(:organization, name: "test_organization_1")
     @superadmin = create(:user, organization_id: organization1.id)
     @superadmin.add_role :superadmin
@@ -400,16 +412,16 @@ class SitesControllerTest < ActionController::TestCase
   end
 
   test "should delete site along with all volunteers and contributors under it" do
-    site = create(:site, id: 10, name: "Khatmandu", country_id: @country.id)
+    site = create(:site, name: "Khatmandu", country_id: @country.id)
 
-    @volunteer1 = create(:user, id: 100, organization_id: @org.id)
+    @volunteer1 = create(:user, username: "vol1000", organization_id: @org.id)
     @volunteer1.add_role :volunteer, site
-    @volunteer2 = create(:user, id: 101, organization_id: @org.id)
+    @volunteer2 = create(:user, username: "vol1001", organization_id: @org.id)
     @volunteer2.add_role :volunteer, site
 
-    @contributor1 = create(:user, id: 200, organization_id: @org.id)
+    @contributor1 = create(:user, username: "con2000", organization_id: @org.id)
     @contributor1.add_role :contributor, site
-    @contributor2 = create(:user, id: 201, organization_id: @org.id)
+    @contributor2 = create(:user, username: "con2001", organization_id: @org.id)
     @contributor2.add_role :contributor, site
 
     assert_difference('Site.count',-1) do
@@ -418,16 +430,16 @@ class SitesControllerTest < ActionController::TestCase
     end
     
     assert_equal "Site has been deleted.", flash[:notice]
-    assert_nil Site.find_by_id(site.id)
+    assert_nil Site.find_by_name("Khatmandu")
 
     # CHECK IF SITE IS DELETED
-    assert_equal Site.find_by_id(10), nil
+    assert_equal Site.find_by_name("Khatmandu"), nil
     # CHECK IF VOLUNTEERS ARE DELETED
-    assert_equal User.find_by_id(100), nil
-    assert_equal User.find_by_id(101), nil
+    assert_equal User.find_by_username("vol1000"), nil
+    assert_equal User.find_by_username("vol1000"), nil
     # CHECK IF CONTRIBUTORS ARE DELETED
-    assert_equal User.find_by_id(200), nil
-    assert_equal User.find_by_id(201), nil
+    assert_equal User.find_by_username("con2000"), nil
+    assert_equal User.find_by_username("con2001"), nil
 
     assert_not_nil Country.find_by_id(@country.id)
   end
