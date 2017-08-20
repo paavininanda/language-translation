@@ -44,18 +44,16 @@
                                 <% end %>
                             </div>
                         </li>
-
                         
-
-                        <% if can? :update, language %>
-                            <li class="CardListTable-cal u-w60px" data-th="Action">
-                                <div class="CardListTable-content">
-                                    <div class="dropdown">
-                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="button--icon" href="#"><i class="icon-action"></i></a>
-                                        <ul class="dropdown-menu u-rightPopup">
-                                            <li>
-                                                <%= link_to "Photos", language_articles_path(language) %>
-                                            </li>
+                        <li class="CardListTable-cal u-w60px" data-th="Action">
+                            <div class="CardListTable-content">
+                                <div class="dropdown">
+                                    <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="button--icon" href="#"><i class="icon-action"></i></a>
+                                    <ul class="dropdown-menu u-rightPopup">
+                                        <li>
+                                            <%= link_to "Photos", language_articles_path(language) %>
+                                        </li>
+                                        <% if can? :update, language %>
                                             <li>
                                                 <%= link_to 'Edit', edit_language_path(language) %>
                                             </li>
@@ -64,12 +62,11 @@
                                                     <%= link_to 'Delete', language_path(language), method: :delete, data: { confirm: 'Are you sure?' } %>
                                                 </li>
                                             <% end %>
-                                        </ul>
-                                    </div>
+                                        <% end %>
+                                    </ul>
                                 </div>
-                            </li>
-                        <% end %>
-
+                            </div>
+                        </li>
                     </ul>
                 </li>
             <% end %>
