@@ -22,7 +22,7 @@
 
 1. Clone the repository : `git clone https://github.com/systers/language-translation.git`. Check into the directory after cloning.
 
-2. Install PostgreSQL (Version 8.2 and above supported), npm, node and graphviz.
+2. Install PostgreSQL (Version 8.2 and above supported), npm, node, graphviz and imagemagick (for image resize/thumbnail creation).
 
 3. Rename config/database.yml.example to config/database.yml : 
 `mv config/database.yml.example config/database.yml`.
@@ -48,3 +48,5 @@
 13. To run the testing suite, Run `rake`.
 
 14. To view the coverage details, From application root, open coverage directory (`cd coverage`) and run `python -m SimpleHTTPServer` and visit `localhost:8000` on your browser.
+
+15. To set up backup of this application on deployment, refer to the `backup` directory.
