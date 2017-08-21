@@ -55,7 +55,9 @@
         <div class="g--half g--last">
 
           <h3>Audio Translations</h3>
-          <span class="help-inline">( If you wish to update the audio, click on bchoose file for the corresponding text and update the audio.)</span>
+          <span class="help-inline">If you wish to update the audio, click on choose file for the corresponding text and update the audio.</span>
+          <br>
+          <span class="help-inline">Text for the audio file is compulsory, and so is the audio file (if added).</span>
           <br><br>
             <div class="clear">
               <div class="g--half">
@@ -72,7 +74,7 @@
               <div class="clear"></div>
             </div>
 
-          <div class="AudioContainer">
+            <div class="AudioContainer">
               <%= f.fields_for :audios do |audio|%>
                 <div class="clear audioBox">
                   <div class="g--half">
@@ -83,15 +85,16 @@
 
                   <div class="g--half g--last">
                     <div class="Form-group">
-                      <%= audio.file_field :audio, class: "Form-control Media--file" %> 
-                      <%= audio.check_box :_destroy, class: "Form-control hide" %> 
+                      <%= audio.file_field :audio, class: "Form-control Media--file" %>
+                      <%= audio.hidden_field :audio_cache %>
+                      <%= audio.check_box :_destroy, class: "Form-control hide" %>
                       <a href="#" class="Close Close--cross u-fr removeAudioFile"><span class="icon-close"></span></a>
                     </div>
                   </div>
                   <div class="clear"></div>
                 </div>
               <% end %>
-          </div>
+            </div>
 
           <a href="#" class="addMoreAudio">Add More</a>
 
