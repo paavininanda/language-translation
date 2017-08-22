@@ -12,6 +12,6 @@
 
 class Audio < ActiveRecord::Base
   belongs_to :article
-
+  validates_presence_of :content
   mount_uploader :audio, AudioUploader
 end

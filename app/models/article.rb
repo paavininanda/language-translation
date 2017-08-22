@@ -22,7 +22,7 @@ class Article < ActiveRecord::Base
   belongs_to :category
   has_many :audios, dependent: :delete_all
 
-  accepts_nested_attributes_for :audios, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :audios, allow_destroy: true, reject_if: lambda { |a| a['audio'].blank? }
 
   # default order when calling the Article model
   default_scope -> { order('created_at DESC') }

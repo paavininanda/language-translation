@@ -113,6 +113,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:picture, :category_id, :language_id, :english, :phonetic, :audio, :state)
+    params.require(:article).permit(:picture, :category_id, :language_id, :english, :phonetic, :state, audios_attributes: [:id, :audio, :content, :article_id, :created_at , :updated_at, :audio_cache, :_destroy])
   end
 end
