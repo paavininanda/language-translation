@@ -19,7 +19,7 @@
     <% if can? :manage, User %>
         <% if current_user.has_role? :superadmin or current_user.has_role? :admin %>
             <br><br>
-            <h3>Aprove User</h3>
+            <h3>Approve User</h3>
             <%= form_tag(controller: "users", action: "approve_user", method: "post") do %>
                 <%= label_tag(:username, "Enter username: ") %>
                 <%= text_field_tag :username %>
